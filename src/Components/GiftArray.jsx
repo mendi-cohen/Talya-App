@@ -1,13 +1,13 @@
 import React from 'react';
-import GiftItem from './GiftItm'; 
+import GiftItem from './GiftItm';
 
 const giftItems = [
   {
     id: 1,
-    name: "סט יין מהודר",
-    description: "סט יין איכותי הכולל בקבוק יין אדום ושני גביעי קריסטל",
-    price: 199.99,
-    image: "/api/placeholder/400/300?text=סט+יין+מהודר"
+    name: "מתנה קייצית",
+    description: "כובע משקפי שמש ואסטרונאוט ",
+    price: 119.99,
+    image: '../Images/item1.jpg'
   },
   {
     id: 2,
@@ -33,7 +33,7 @@ const giftItems = [
 
 ];
 
-const GiftArray = () => {
+const GiftArray = ({ onAddToCart }) => {
   return (
     <div className="min-h-screen bg-gray-100">
       <main className="container mx-auto px-4 py-8">
@@ -45,6 +45,8 @@ const GiftArray = () => {
               description={item.description}
               price={item.price}
               image={item.image}
+              buttonText={"הוסף לסל"}
+              AddToCartOrRemove={() => onAddToCart(item )}
             />
           ))}
         </div>

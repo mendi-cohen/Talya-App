@@ -1,8 +1,14 @@
 import React from 'react';
 import { ShoppingCart, Search, Menu } from 'lucide-react';
-import GiftArray from './Components/GiftArray';
+import { Outlet , useNavigate } from "react-router-dom";
+
 
 const GiftShopLayout = () => {
+  const navigate = useNavigate();
+
+  const handleNavigate = () => {
+    navigate('/shopcart');
+  };
   return (
     <div className="min-h-screen bg-gray-100">
       {/* Header */}
@@ -12,8 +18,7 @@ const GiftShopLayout = () => {
             <button className="md:hidden" aria-label="תפריט">
               <Menu className="h-6 w-6 text-gray-600 cursor-pointer" />
             </button>
-            <h1 className="text-4xl md:text-4xl font-extrabold text-purple-600
-             " 
+            <h1 className="text-4xl md:text-4xl font-extrabold text-purple-600" 
             style={{ textShadow: '2px 2px 0 #e0e7ff, 4px 4px 0 #c7d2fe, 6px 6px 0 #a5b4fc' }}>
         מתנות מקוריות
       </h1>
@@ -28,7 +33,7 @@ const GiftShopLayout = () => {
             <button aria-label="חיפוש">
               <Search className="h-6 w-6 text-gray-600 cursor-pointer" />
             </button>
-            <button aria-label="סל קניות">
+            <button aria-label="סל קניות" onClick={handleNavigate} >
               <ShoppingCart className="h-6 w-6 text-gray-600 cursor-pointer" />
             </button>
           </div>
@@ -37,7 +42,7 @@ const GiftShopLayout = () => {
 
       {/* Main Content */}
       <main className="container mx-auto px-4 py-8">
-    <GiftArray/>
+      <Outlet/>
      </main>
 
       {/* Footer */}

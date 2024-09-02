@@ -1,7 +1,8 @@
 import React from 'react';
-import { Gift } from 'lucide-react';
+import { Gift ,Eye } from 'lucide-react';
 
-const GiftItem = ({ name, description, price, image }) => {
+const GiftItem = ({ name, description, price, image , AddToCartOrRemove ,buttonText , Detailse }) => {
+
   return (
     <div className="bg-white rounded-lg shadow-md overflow-hidden">
       <img src={image} alt={name} className="w-full h-48 object-cover" />
@@ -11,9 +12,14 @@ const GiftItem = ({ name, description, price, image }) => {
         <div className="flex justify-between items-center">
           <span className="text-lg font-bold text-purple-600">₪{price.toFixed(2)}</span>
           <button className="bg-purple-600 text-white px-4 py-2 rounded-md hover:bg-purple-700 transition duration-300 flex items-center">
-            <Gift className="h-5 w-5 mr-2" />
-            הוסף לסל
+            <Eye className="h-5 w-5 mr-2" onClick={Detailse}/>
+           לפרטים על המוצר
           </button>
+          <button onClick={AddToCartOrRemove} className="bg-purple-600 text-white px-4 py-2 rounded-md hover:bg-purple-700 transition duration-300 flex items-center">
+            <Gift  className="h-5 w-5 mr-2" />
+          {buttonText}
+          </button>
+         
         </div>
       </div>
     </div>

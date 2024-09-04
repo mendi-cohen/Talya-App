@@ -1,7 +1,6 @@
 import React from 'react';
-import GiftItem from './GiftItm';
-
-const giftItems = [
+import GiftItem from './GiftItem';
+const gifts = [
   {
     id: 1,
     name: "מתנה קייצית",
@@ -33,12 +32,12 @@ const giftItems = [
 
 ];
 
-const GiftArray = ({ onAddToCart }) => {
+const GiftArray = () => {
   return (
     <div className="min-h-screen bg-gray-100">
       <main className="container mx-auto px-4 py-8">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {giftItems.map((item) => (
+          {gifts.map((item) => (
             <GiftItem
               key={item.id}
               name={item.name}
@@ -46,7 +45,7 @@ const GiftArray = ({ onAddToCart }) => {
               price={item.price}
               image={item.image}
               buttonText={"הוסף לסל"}
-              AddToCartOrRemove={() => onAddToCart(item )}
+              
             />
           ))}
         </div>
@@ -55,4 +54,5 @@ const GiftArray = ({ onAddToCart }) => {
   );
 };
 
+export { gifts };
 export default GiftArray;

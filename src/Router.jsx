@@ -8,6 +8,7 @@ import ShopCart from './Components/ShopCart';
 
 
 
+
 const MyRouter = () => {
   
 
@@ -23,6 +24,7 @@ const MyRouter = () => {
         </Route>
      
       </Routes>
+
     </Router>
   );
 }

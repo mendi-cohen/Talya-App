@@ -19,7 +19,7 @@ const SearchResults = ({ searchTerm }) => {
               description={item.description}
               price={item.price}
               image={item.image}
-              buttonText="הוסף לסל"
+              buttonText="הוסף לעגלה"
             />
           ))}
         </div>

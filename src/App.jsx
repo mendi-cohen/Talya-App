@@ -1,4 +1,6 @@
 import MyRouter from './Router';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import './index.css';
 
 function App() {
@@ -6,6 +8,8 @@ function App() {
   
       <div className="App">
         <MyRouter/>
+      <ToastContainer />
+
       </div>
    
   );

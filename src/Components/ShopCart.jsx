@@ -41,7 +41,7 @@ const ShopCart = () => {
                 description={item.description}
                 price={item.price}
                 image={item.image}
-                buttonText= "הסר מהסל" 
+                buttonText= "הסר מהעגלה" 
                 removeItem={() => removeFromCart(item.name)}
               />
             ))}

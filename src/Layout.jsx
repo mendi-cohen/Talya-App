@@ -60,7 +60,7 @@ const GiftShopLayout = () => {
                     "1px 1px 0 #e0e7ff, 2px 2px 0 #c7d2fe, 3px 3px 0 #a5b4fc",
                 }}
               >
-                מתנות מקוריות
+          טליה - דזיין
               </h1>
               <button
                 className="md:hidden"

@@ -3,7 +3,8 @@ import { ShoppingCart, Search, Menu } from "lucide-react";
 import { Outlet, useLocation } from "react-router-dom";
 import SearchResults from "./Components/SerchResults";
 import ShopCart from './Components/ShopCart';
-import { useCart } from './Components/CartContext'
+import { useCart } from './Components/CartContext';
+
 const GiftShopLayout = () => {
   const location = useLocation();
   const [searchTerm, setSearchTerm] = useState("");
@@ -52,15 +53,15 @@ const GiftShopLayout = () => {
         <div className="container mx-auto px-4 py-4">
           <div className="flex flex-col md:flex-row items-center justify-between">
             {/* Logo and Menu Button */}
-            <div className="flex items-center justify-between w-full md:w-auto mb-4 md:mb-0">
+            <div className="flex items-center justify-between w-full md:w-auto mb-4 md:mb-0 ">
               <h1
-                className="text-2xl sm:text-3xl font-extrabold text-purple-600"
+                className="text-2xl sm:text-3xl font-extrabold text-[#3abcb1]"
                 style={{
                   textShadow:
                     "1px 1px 0 #e0e7ff, 2px 2px 0 #c7d2fe, 3px 3px 0 #a5b4fc",
                 }}
               >
-                מתנות מקוריות
+                טליה -דיזיין
               </h1>
               <button
                 className="md:hidden"
@@ -70,6 +71,27 @@ const GiftShopLayout = () => {
                 <Menu className="h-6 w-6 text-gray-600 cursor-pointer" />
               </button>
             </div>
+
+              {/* Navigation */}
+              <nav className={`${isMenuOpen ? "block" : "hidden"} md:block`}>
+              <ul className="flex flex-col md:flex-row items-center space-y-2 md:space-y-0 md:space-x-4">
+                <li>
+                  <button className="text-gray-600 hover:text-purple-600">
+                    קטגוריות
+                  </button>
+                </li>
+                <li>
+                  <button className="text-gray-600 hover:text-purple-600">
+                    מבצעים
+                  </button>
+                </li>
+                <li>
+                  <button className="text-gray-600 hover:text-purple-600">
+                    צור קשר
+                  </button>
+                </li>
+              </ul>
+            </nav>
 
             {/* Search and Cart */}
             {!isCartPage && (
@@ -102,29 +124,14 @@ const GiftShopLayout = () => {
               </div>
             )}
 
-            {/* Navigation */}
-            <nav className={`${isMenuOpen ? "block" : "hidden"} md:block`}>
-              <ul className="flex flex-col md:flex-row items-center space-y-2 md:space-y-0 md:space-x-4">
-                <li>
-                  <button className="text-gray-600 hover:text-purple-600">
-                    קטגוריות
-                  </button>
-                </li>
-                <li>
-                  <button className="text-gray-600 hover:text-purple-600">
-                    מבצעים
-                  </button>
-                </li>
-                <li>
-                  <button className="text-gray-600 hover:text-purple-600">
-                    צור קשר
-                  </button>
-                </li>
-              </ul>
-            </nav>
+          
           </div>
         </div>
       </header>
+
+      <div className="w-full h-[800px] bg-cover bg-center mb-8" 
+     style={{ backgroundImage: `url('../Images/i1.jpeg')` }}>
+</div>
 
       {/* Main Content */}
       <main className="container mx-auto px-4 py-8 flex-grow">
@@ -136,7 +143,7 @@ const GiftShopLayout = () => {
       </main>
 
       <div
-  className={`fixed top-0 right-0 h-full w-96 bg-white shadow-lg transform transition-transform duration-500 ease-in-out z-50 ${
+  className={`fixed top-0 right-0 h-full w-85 bg-white shadow-lg transform transition-transform duration-500 ease-in-out z-50 ${
     cartOpen ? "translate-x-0" : "translate-x-full"
   }`}
 >
@@ -144,7 +151,7 @@ const GiftShopLayout = () => {
     <div className="flex justify-between items-center mb-4">
       <h2 className="text-xl font-bold">סל הקניות שלך</h2>
       <button
-        className="text-gray-500 hover:text-red-500"
+        className="text-gray-500 hover:font-bold text-red-500 text-xl"
         onClick={toggleCart}
       >
         סגור

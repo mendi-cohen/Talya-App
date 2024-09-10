@@ -45,8 +45,9 @@ const GiftItem = ({
         <p className="text-gray-600 mb-4 flex-grow">{description}</p>
         <div className="flex flex-col sm:flex-row justify-between items-center gap-2">
           <span className="text-lg font-bold text-purple-600 mb-2 sm:mb-0">
-            ₪{price.toFixed(2)} * {localQuantity}
+            ₪{price.toFixed(2)} 
           </span>
+          
           <div className="flex flex-col xs:flex-row gap-2 w-full sm:w-auto">
             
             {buttonText === "הוסף לעגלה" && (

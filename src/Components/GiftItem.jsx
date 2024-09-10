@@ -48,15 +48,7 @@ const GiftItem = ({
             ₪{price.toFixed(2)} * {localQuantity}
           </span>
           <div className="flex flex-col xs:flex-row gap-2 w-full sm:w-auto">
-            {buttonText !== "הסר מהעגלה" && (
-              <button
-                className="bg-purple-600 text-white px-2 py-1 sm:px-4 sm:py-2 rounded-md hover:bg-purple-700 transition duration-300 flex items-center justify-center text-sm sm:text-base"
-                onClick={Details}
-              >
-                <Eye className="h-4 w-4 sm:h-5 sm:w-5 mr-1 sm:mr-2" />
-                לפרטים
-              </button>
-            )}
+            
             {buttonText === "הוסף לעגלה" && (
               <>
                     <span className="mx-4 text-gray-700 flex items-center justify-center">בחר כמות</span>
@@ -115,7 +107,16 @@ const GiftItem = ({
                     </svg>
                   </button>
                 </div>
-
+{buttonText !== "הסר מהעגלה" && (
+              <button
+                className="bg-purple-600 text-white px-2 py-1 sm:px-4 sm:py-2 rounded-md hover:bg-purple-700 transition duration-300 flex items-center justify-center text-sm sm:text-base"
+                onClick={Details}
+              >
+                <Eye className="h-4 w-4 sm:h-5 sm:w-5 mr-1 sm:mr-2" />
+                לפרטים
+              </button>
+            )}
+                
                 <button
                   onClick={handleClick}
                   className="bg-purple-600 text-white px-2 py-1 sm:px-4 sm:py-2 rounded-md hover:bg-purple-700 transition duration-300 flex items-center justify-center text-sm sm:text-base"

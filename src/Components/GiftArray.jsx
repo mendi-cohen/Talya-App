@@ -46,6 +46,7 @@ const GiftArray = () => {
               image={item.image}
               buttonText={"הוסף לעגלה"}
               
+              
             />
           ))}
         </div>

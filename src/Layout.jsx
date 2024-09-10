@@ -53,9 +53,9 @@ const GiftShopLayout = () => {
         <div className="container mx-auto px-4 py-4">
           <div className="flex flex-col md:flex-row items-center justify-between">
             {/* Logo and Menu Button */}
-            <div className="flex items-center justify-between w-full md:w-auto mb-4 md:mb-0 ">
+            <div className="flex items-center justify-between w-full md:w-auto mb-4 md:mb-0">
               <h1
-                className="text-2xl sm:text-3xl font-extrabold text-[#3abcb1]"
+                className="text-2xl sm:text-3xl font-extrabold text-purple-600"
                 style={{
                   textShadow:
                     "1px 1px 0 #e0e7ff, 2px 2px 0 #c7d2fe, 3px 3px 0 #a5b4fc",
@@ -129,8 +129,8 @@ const GiftShopLayout = () => {
         </div>
       </header>
 
-      <div className="w-full h-[800px] bg-cover bg-center mb-8" 
-     style={{ backgroundImage: `url('../Images/i1.jpeg')` }}>
+      <div className="w-full h-[500px] bg-cover bg-center mb-8" 
+     style={{ backgroundImage: `url('../Images/item1.jpg')` }}>
 </div>
 
       {/* Main Content */}

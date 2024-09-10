@@ -44,9 +44,9 @@ const GiftItem = ({
         <h3 className="text-xl font-semibold mb-2">{name}</h3>
         <p className="text-gray-600 mb-4 flex-grow">{description}</p>
         <div className="flex flex-col sm:flex-row justify-between items-center gap-2">
-        {buttonText !== "הוסף לעגלה" ? <span className="text-lg font-bold text-[#3abcb1] mb-2 sm:mb-0">
+        {buttonText !== "הוסף לעגלה" ? <span className="text-lg font-bold text-purple-600 mb-2 sm:mb-0">
             ₪{price.toFixed(2)} * {localQuantity}
-          </span> : <span className="text-lg font-bold text-[#3abcb1] mb-2 sm:mb-0">
+          </span> : <span className="text-lg font-bold text-purple-600 mb-2 sm:mb-0">
             ₪{price.toFixed(2)} 
           </span>}
           <div className="flex flex-col xs:flex-row gap-2 w-full sm:w-auto">
@@ -111,7 +111,7 @@ const GiftItem = ({
                 </div>
                 {buttonText !== "הסר מהעגלה" && (
               <button
-                className="bg-[#e0d7b5]  text-black px-2 py-1 sm:px-4 sm:py-2 rounded-md hover:bg-[#e5e5c7] transition duration-300 flex items-center justify-center text-sm sm:text-base"
+                className="bg-purple-600 text-white px-2 py-1 sm:px-4 sm:py-2 rounded-md hover:bg-purple-700 transition duration-300 flex items-center justify-center text-sm sm:text-base"
                 onClick={Details}
               >
                 <Eye className="h-4 w-4 sm:h-5 sm:w-5 mr-1 sm:mr-2" />
@@ -120,7 +120,7 @@ const GiftItem = ({
             )}
                 <button
                   onClick={handleClick}
-                  className="bg-[#3abcb1] text-white px-2 py-1 sm:px-4 sm:py-2 rounded-md hover:bg-purple-700 transition duration-300 flex items-center justify-center text-sm sm:text-base"
+                  className="bg-purple-600 text-white px-2 py-1 sm:px-4 sm:py-2 rounded-md hover:bg-purple-700 transition duration-300 flex items-center justify-center text-sm sm:text-base"
                 >
                   <Gift className="h-4 w-4 sm:h-5 sm:w-5 mr-1 sm:mr-2" />
                   {buttonText}
@@ -130,7 +130,7 @@ const GiftItem = ({
             {buttonText === "הסר מהעגלה" && (
               <button
                 onClick={removeItem}
-                className="bg-[#3abcb1] text-white px-2 py-1 sm:px-4 sm:py-2 rounded-md hover:bg-purple-700 transition duration-300 flex items-center justify-center text-sm sm:text-base"
+                className="bg-purple-600 text-white px-2 py-1 sm:px-4 sm:py-2 rounded-md hover:bg-purple-700 transition duration-300 flex items-center justify-center text-sm sm:text-base"
               >
                 <Delete className="h-4 w-4 sm:h-5 sm:w-5 mr-1 sm:mr-2" />
                 {buttonText}

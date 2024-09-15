@@ -15,7 +15,7 @@ const GiftArray = () => {
     const fetchGifts = async () => {
       try {
    
-        const response = await fetch(`${process.env.REACT_APP_HOST_API}products/get_products`); 
+        const response = await fetch(`${process.env.REACT_APP_HOST_API}/products/get_products`); 
         const data = await response.json();
         const giftsWithCorrectPrice = data.map(item => ({
           ...item,

@@ -9,7 +9,7 @@ const GiftItem = ({
   name,
   description,
   price,
-  image,
+  image_url,
   quantity,
   buttonText,
   Details,
@@ -17,11 +17,11 @@ const GiftItem = ({
 }) => {
   const { addToCart, removeFromCart } = useCart();
   const [localQuantity, setLocalQuantity] = useState(quantity || 1);
-
+  
   const handleClick = () => {
     if (buttonText === "הוסף לעגלה") {
       if (localQuantity > 0) {
-        addToCart({ name, description, price, image, quantity: localQuantity });
+        addToCart({ name, description, price, image_url, quantity: localQuantity });
       } else {
         toast.error(`! כמות לא חוקית`, {
           position: "top-center",
@@ -35,11 +35,14 @@ const GiftItem = ({
     } else {
       removeFromCart(name);
     }
+
+    console.log("dsdsd" , image_url);
+    
   };
 
   return (
     <div className="bg-white rounded-lg shadow-md overflow-hidden m-4 flex flex-col h-full">
-      <img src={image} alt={name} className="w-full h-48 object-cover" />
+      <img src={image_url} alt={name} className="w-full h-48 object-cover" />
       <div className="p-4 flex flex-col flex-grow">
         <h3 className="text-xl font-semibold mb-2">{name}</h3>
         <p className="text-gray-600 mb-4 flex-grow">{description}</p>

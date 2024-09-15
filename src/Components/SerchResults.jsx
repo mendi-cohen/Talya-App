@@ -1,8 +1,9 @@
-import { gifts } from './GiftArray';
+
 import GiftItem from './GiftItem';
+import {ExportGifts} from './GiftArray';
 
 const SearchResults = ({ searchTerm }) => {
-  const filteredItems = gifts.filter(item =>
+  const filteredItems = ExportGifts.filter(item =>
     item.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
     item.description.toLowerCase().includes(searchTerm.toLowerCase())
   );

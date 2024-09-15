@@ -1,38 +1,46 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import GiftItem from './GiftItem';
-const gifts = [
-  {
-    id: 1,
-    name: "מתנה קייצית",
-    description: "כובע משקפי שמש ואסטרונאוט ",
-    price: 119.99,
-    image: '../Images/item1.jpg'
-  },
-  {
-    id: 2,
-    name: "שעון חכם",
-    description: "שעון חכם עם מגוון תכונות כולל מעקב כושר ומדידת דופק",
-    price: 499.99,
-    image: "/api/placeholder/400/300?text=שעון+חכם"
-  },
-  {
-    id: 3,
-    name: "סט ספא ביתי",
-    description: "סט מפנק לספא ביתי הכולל מגבות, נרות ושמנים ארומטיים",
-    price: 149.99,
-    image: "/api/placeholder/400/300?text=סט+ספא+ביתי"
-  },
-  {
-    id: 4,
-    name: "סט ספא ביתי",
-    description: "סט מפנק לספא ביתי הכולל מגבות, נרות ושמנים ארומטיים",
-    price: 149.99,
-    image: "/api/placeholder/400/300?text=סט+ספא+ביתי"
-  },
 
-];
+
+
+
+let ExportGifts = [];
 
 const GiftArray = () => {
+
+  const [gifts, setGifts] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchGifts = async () => {
+      try {
+   
+        const response = await fetch(`${process.env.REACT_APP_HOST_API}products/get_products`); 
+        const data = await response.json();
+        const giftsWithCorrectPrice = data.map(item => ({
+          ...item,
+          price: item.price ? parseFloat(item.price) : 0 ,
+              }));
+      
+        
+        setGifts(giftsWithCorrectPrice);
+        console.log(giftsWithCorrectPrice);
+        ExportGifts = giftsWithCorrectPrice
+        setGifts(data);
+      } catch (error) {
+        console.error('Error fetching gifts:', error);
+      } finally {
+        setLoading(false); 
+      }
+    };
+
+    fetchGifts();
+  }, []); 
+
+  if (loading) {
+    return <div>טוען מתנות...</div>; 
+  }
+
   return (
     <div className="min-h-screen bg-gray-100">
       <main className="container mx-auto px-4 py-8">
@@ -43,7 +51,7 @@ const GiftArray = () => {
               name={item.name}
               description={item.description}
               price={item.price}
-              image={item.image}
+              image_url={item.image_url}
               buttonText={"הוסף לעגלה"}
               
               
@@ -55,5 +63,5 @@ const GiftArray = () => {
   );
 };
 
-export { gifts };
+export { ExportGifts }; 
 export default GiftArray;

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { ShoppingCart, Search, Menu } from "lucide-react";
 import { Outlet, useLocation } from "react-router-dom";
 import SearchResults from "./Components/SerchResults";
@@ -13,6 +13,7 @@ const GiftShopLayout = () => {
   const [cartOpen, setCartOpen] = useState(false);
   const { items, updateItemsFromStorage } = useCart(); 
   const cartItemCount = items.length;
+  const cartRef = useRef(null);  
 
   useEffect(() => {
     updateItemsFromStorage(); 
@@ -24,6 +25,19 @@ const GiftShopLayout = () => {
       window.removeEventListener("storage", updateItemsFromStorage);
     };
   }, [updateItemsFromStorage]);
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (cartOpen && cartRef.current && !cartRef.current.contains(event.target)) {
+        setCartOpen(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [cartOpen]);
 
   const handleSearch = () => {
     if (searchTerm !== "") {
@@ -124,7 +138,6 @@ const GiftShopLayout = () => {
               </div>
             )}
 
-          
           </div>
         </div>
       </header>
@@ -143,23 +156,24 @@ const GiftShopLayout = () => {
       </main>
 
       <div
-  className={`fixed top-0 right-0 h-full w-85 bg-white shadow-lg transform transition-transform duration-500 ease-in-out z-50 ${
-    cartOpen ? "translate-x-0" : "translate-x-full"
-  }`}
->
-  <div className="p-4 overflow-y-auto h-full">
-    <div className="flex justify-between items-center mb-4">
-      <h2 className="text-xl font-bold">סל הקניות שלך</h2>
-      <button
-        className="text-gray-500 hover:font-bold text-red-500 text-xl"
-        onClick={toggleCart}
+        ref={cartRef}  // התייחסות לעגלה
+        className={`fixed top-0 right-0 h-full w-85 bg-white shadow-lg transform transition-transform duration-500 ease-in-out z-50 ${
+          cartOpen ? "translate-x-0" : "translate-x-full"
+        }`}
       >
-        סגור
-      </button>
-    </div>
-    <ShopCart />
-  </div>
-</div>
+        <div className="p-4 overflow-y-auto h-full">
+          <div className="flex justify-between items-center mb-4">
+            <h2 className="text-xl font-bold">סל הקניות שלך</h2>
+            <button
+              className="text-gray-500 hover:font-bold text-red-500 text-xl"
+              onClick={toggleCart}
+            >
+              סגור
+            </button>
+          </div>
+          <ShopCart />
+        </div>
+      </div>
 
       {/* Footer */}
       <footer className="bg-gray-800 text-white py-8">

@@ -24,7 +24,6 @@ const GiftArray = () => {
       
         
         setGifts(giftsWithCorrectPrice);
-        console.log(giftsWithCorrectPrice);
         ExportGifts = giftsWithCorrectPrice
         setGifts(data);
       } catch (error) {

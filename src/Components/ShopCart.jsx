@@ -24,7 +24,7 @@ const ShopCart = () => {
               name={item.name}
               description={item.description}
               price={item.price}
-              image={item.image}
+              image_url={item.image_url}
               quantity={item.quantity}
               buttonText="הסר מהעגלה"
               removeItem={() => removeFromCart(item.name)}

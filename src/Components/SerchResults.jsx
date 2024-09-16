@@ -4,8 +4,7 @@ import {ExportGifts} from './GiftArray';
 
 const SearchResults = ({ searchTerm }) => {
   const filteredItems = ExportGifts.filter(item =>
-    item.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    item.description.toLowerCase().includes(searchTerm.toLowerCase())
+    item.name.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
   return (

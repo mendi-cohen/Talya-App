@@ -25,7 +25,6 @@ const GiftArray = () => {
         
         setGifts(giftsWithCorrectPrice);
         ExportGifts = giftsWithCorrectPrice
-        setGifts(data);
       } catch (error) {
         console.error('Error fetching gifts:', error);
       } finally {
@@ -50,7 +49,7 @@ const GiftArray = () => {
               name={item.name}
               description={item.description}
               price={item.price}
-              image_url={item.image_url}
+              image={item.image}
               buttonText={"הוסף לעגלה"}
               
               

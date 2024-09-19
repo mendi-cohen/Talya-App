@@ -4,23 +4,11 @@ import { useCart } from "./CartContext";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-// פונקציה להמרת buffer ל-base64
-const arrayBufferToBase64 = (buffer) => {
-  let binary = '';
-  const bytes = new Uint8Array(buffer);
-  const len = bytes.byteLength;
-  for (let i = 0; i < len; i++) {
-    binary += String.fromCharCode(bytes[i]);
-  }
-  return window.btoa(binary);
-};
-
 const GiftItem = ({
   name,
   description,
   price,
-  image, 
-  imageType, 
+  image, // נניח שה־image הוא פשוט URL של התמונה
   quantity,
   buttonText,
   Details,
@@ -29,18 +17,12 @@ const GiftItem = ({
   const { addToCart, removeFromCart } = useCart();
   const [localQuantity, setLocalQuantity] = useState(quantity || 1);
 
-  // המרה של buffer לתמונה בפורמט base64
-  const base64Image = image ? `data:${imageType};base64,${arrayBufferToBase64(image)}` : '';
-
-
-  ;
-
   const handleClick = () => {
     if (buttonText === "הוסף לעגלה") {
       if (localQuantity > 0) {
-        addToCart({ name, description, price, image: base64Image, quantity: localQuantity });
+        addToCart({ name, description, price, image, quantity: localQuantity });
       } else {
-        toast.error(`! כמות לא חוקית`, {
+        toast.error("! כמות לא חוקית", {
           position: "top-center",
           autoClose: 1000,
           hideProgressBar: false,
@@ -56,8 +38,8 @@ const GiftItem = ({
 
   return (
     <div className="bg-white rounded-lg shadow-md overflow-hidden m-4 flex flex-col h-full">
-      {base64Image && (
-        <img src={base64Image} alt={name} className="w-full h-48 object-cover" />
+      {image && (
+        <img src={image} alt={name} className="w-full h-48 object-cover" />
       )}
       <div className="p-4 flex flex-col flex-grow">
         <h3 className="text-xl font-semibold mb-2">{name}</h3>
@@ -75,27 +57,14 @@ const GiftItem = ({
           <div className="flex flex-col xs:flex-row gap-2 w-full sm:w-auto">
             {buttonText === "הוסף לעגלה" && (
               <>
-                <span className="mx-4 text-gray-700 flex items-center justify-center"> כמות</span>
+                <span className="mx-4 text-gray-700 flex items-center justify-center">כמות</span>
                 <div className="flex items-center justify-center">
                   <button
                     type="button"
                     onClick={() => setLocalQuantity(Math.max(1, localQuantity - 1))}
                     className="bg-gray-300 border border-gray-400 rounded-l-full px-3 py-2 text-gray-700 hover:bg-gray-400 transition duration-300 flex items-center justify-center"
                   >
-                    <svg
-                      className="w-4 h-4"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth="2"
-                        d="M19 9l-7 7-7-7"
-                      ></path>
-                    </svg>
+                    -
                   </button>
 
                   <input
@@ -112,20 +81,7 @@ const GiftItem = ({
                     onClick={() => setLocalQuantity(localQuantity + 1)}
                     className="bg-gray-300 border border-gray-400 rounded-r-full px-3 py-2 text-gray-700 hover:bg-gray-400 transition duration-300 flex items-center justify-center"
                   >
-                    <svg
-                      className="w-4 h-4"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth="2"
-                        d="M5 15l7-7 7 7"
-                      ></path>
-                    </svg>
+                    +
                   </button>
                 </div>
 

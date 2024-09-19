@@ -1,42 +1,44 @@
 import React, { useState, useEffect } from 'react';
 import GiftItem from './GiftItem';
 
-
-
-
 let ExportGifts = [];
 
 const GiftArray = () => {
-
   const [gifts, setGifts] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchGifts = async () => {
       try {
-   
-        const response = await fetch(`${process.env.REACT_APP_HOST_API}/products/get_products`); 
-        const data = await response.json();
+        const response = await fetch(`${process.env.REACT_APP_HOST_API}products/get_products`);
+        
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+    
+        const text = await response.text();
+        const data = JSON.parse(text); 
+        
         const giftsWithCorrectPrice = data.map(item => ({
           ...item,
-          price: item.price ? parseFloat(item.price) : 0 ,
-              }));
-      
-        
+          price: item.price ? parseFloat(item.price) : 0,
+          image: item.image ? item.image.data : null,
+          imageType: item.imageType // ודא שאתה מקבל את סוג התמונה
+        }));
+    
         setGifts(giftsWithCorrectPrice);
-        ExportGifts = giftsWithCorrectPrice
       } catch (error) {
         console.error('Error fetching gifts:', error);
       } finally {
-        setLoading(false); 
+        setLoading(false);
       }
     };
 
     fetchGifts();
-  }, []); 
+  }, []);
 
   if (loading) {
-    return <div>טוען מתנות...</div>; 
+    return <div>טוען מתנות...</div>;
   }
 
   return (
@@ -49,10 +51,9 @@ const GiftArray = () => {
               name={item.name}
               description={item.description}
               price={item.price}
-              image={item.image}
+              image={item.image} 
+              imageType={item.imageType} // העבר גם את סוג התמונה
               buttonText={"הוסף לעגלה"}
-              
-              
             />
           ))}
         </div>
@@ -60,6 +61,5 @@ const GiftArray = () => {
     </div>
   );
 };
-
-export { ExportGifts }; 
+export { ExportGifts };
 export default GiftArray;

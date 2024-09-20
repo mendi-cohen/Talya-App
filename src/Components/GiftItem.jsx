@@ -8,7 +8,7 @@ const GiftItem = ({
   name,
   description,
   price,
-  image, // נניח שה־image הוא פשוט URL של התמונה
+  image, 
   quantity,
   buttonText,
   Details,

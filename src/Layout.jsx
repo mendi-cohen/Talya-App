@@ -2,8 +2,8 @@ import React, { useState, useEffect, useRef } from "react";
 import { ShoppingCart, Search, Menu } from "lucide-react";
 import { Outlet, useLocation } from "react-router-dom";
 import SearchResults from "./Components/SerchResults";
-import ShopCart from './Components/ShopCart';
-import { useCart } from './Components/CartContext';
+import ShopCart from "./Components/ShopCart";
+import { useCart } from "./Components/CartContext";
 
 const GiftShopLayout = () => {
   const location = useLocation();
@@ -11,12 +11,12 @@ const GiftShopLayout = () => {
   const [showSearchResults, setShowSearchResults] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [cartOpen, setCartOpen] = useState(false);
-  const { items, updateItemsFromStorage } = useCart(); 
+  const { items, updateItemsFromStorage } = useCart();
   const cartItemCount = items.length;
-  const cartRef = useRef(null);  
+  const cartRef = useRef(null);
 
   useEffect(() => {
-    updateItemsFromStorage(); 
+    updateItemsFromStorage();
   }, [location.pathname, cartOpen, updateItemsFromStorage]);
 
   useEffect(() => {
@@ -28,7 +28,11 @@ const GiftShopLayout = () => {
 
   useEffect(() => {
     const handleClickOutside = (event) => {
-      if (cartOpen && cartRef.current && !cartRef.current.contains(event.target)) {
+      if (
+        cartOpen &&
+        cartRef.current &&
+        !cartRef.current.contains(event.target)
+      ) {
         setCartOpen(false);
       }
     };
@@ -68,7 +72,7 @@ const GiftShopLayout = () => {
           <div className="flex flex-col md:flex-row items-center justify-between">
             {/* Logo and Menu Button */}
             <div className="flex items-center justify-between w-full md:w-auto mb-4 md:mb-0">
-            <h1
+              <h1
                 className="text-2xl sm:text-3xl font-extrabold text-[#3abcb1]"
                 style={{
                   textShadow:
@@ -87,7 +91,7 @@ const GiftShopLayout = () => {
             </div>
 
             {/* Navigation */}
-            <nav className={`md:flex ${isMenuOpen ? "block" : "hidden"} md:block`}>
+            <nav className="hidden md:flex">
               <ul className="flex flex-col md:flex-row items-center space-y-4 md:space-y-0 md:space-x-6">
                 <li>
                   <button className="text-[#3abcb1] hover:text-[#a5b4fc] transition duration-300 text-lg font-medium flex items-center space-x-2">
@@ -117,7 +121,11 @@ const GiftShopLayout = () => {
                   onChange={handleSearchInputChange}
                   className="border rounded-md px-4 py-2 w-full md:w-64 text-[#3abcb1] placeholder-[#a5b4fc] border-[#a5b4fc] focus:border-[#3abcb1] focus:ring-0"
                 />
-                <button aria-label="חיפוש" onClick={handleSearch} className="text-[#3abcb1] hover:text-[#a5b4fc]">
+                <button
+                  aria-label="חיפוש"
+                  onClick={handleSearch}
+                  className="text-[#3abcb1] hover:text-[#a5b4fc]"
+                >
                   <Search className="h-6 w-6" />
                 </button>
 
@@ -139,26 +147,48 @@ const GiftShopLayout = () => {
         </div>
 
         {/* Hamburger Menu */}
-        <div className={`fixed top-0 right-0 w-64 bg-white shadow-lg transform transition-transform duration-300 ease-in-out z-50 ${isMenuOpen ? "translate-x-0" : "translate-x-full"}`}>
+        <div
+          className={`fixed top-0 right-0 w-64 bg-white shadow-lg transform transition-transform duration-300 ease-in-out z-50 ${
+            isMenuOpen ? "translate-x-0" : "translate-x-full"
+          } ${window.innerWidth > 768 ? "hidden" : ""}`}
+        >
           <div className="p-4">
             <div className="flex justify-between items-center mb-4">
               <h2 className="text-xl font-bold text-[#3abcb1]">תפריט</h2>
-              <button className="text-gray-500 hover:text-red-500" onClick={() => setIsMenuOpen(false)}>
+              <button
+                className="text-gray-500 hover:text-red-500"
+                onClick={() => setIsMenuOpen(false)}
+              >
                 סגור
               </button>
             </div>
             <ul className="space-y-4">
-              <li><button className="text-[#3abcb1] hover:text-[#a5b4fc] transition duration-300 text-lg font-medium">קטגוריות</button></li>
-              <li><button className="text-[#3abcb1] hover:text-[#a5b4fc] transition duration-300 text-lg font-medium">מבצעים</button></li>
-              <li><button className="text-[#3abcb1] hover:text-[#a5b4fc] transition duration-300 text-lg font-medium">צור קשר</button></li>
+              <li>
+                <button className="text-[#3abcb1] hover:text-[#a5b4fc] transition duration-300 text-lg font-medium">
+                  קטגוריות
+                </button>
+              </li>
+              <li>
+                <button className="text-[#3abcb1] hover:text-[#a5b4fc] transition duration-300 text-lg font-medium">
+                  מבצעים
+                </button>
+              </li>
+              <li>
+                <button className="text-[#3abcb1] hover:text-[#a5b4fc] transition duration-300 text-lg font-medium">
+                  צור קשר
+                </button>
+              </li>
             </ul>
           </div>
         </div>
       </header>
 
-      <div className="w-full h-[800px] bg-cover bg-center mb-8 mt-16" 
-           style={{ backgroundImage: `url('../Images/i1.jpeg')` }}>
-      </div>
+      <div
+        className="w-full h-[800px] bg-cover bg-center mb-8 mt-16"
+        style={{ backgroundImage: `url('../Images/i1.jpeg')` }}
+      ></div>
+
+
 
       {/* Main Content */}
       <main className="container mx-auto px-4 py-8 flex-grow">
@@ -204,10 +234,14 @@ const GiftShopLayout = () => {
                   <button className="hover:text-purple-400">תקנון</button>
                 </li>
                 <li>
-                  <button className="hover:text-purple-400">מדיניות פרטיות</button>
+                  <button className="hover:text-purple-400">
+                    מדיניות פרטיות
+                  </button>
                 </li>
                 <li>
-                  <button className="hover:text-purple-400">שאלות נפוצות</button>
+                  <button className="hover:text-purple-400">
+                    שאלות נפוצות
+                  </button>
                 </li>
               </ul>
             </div>

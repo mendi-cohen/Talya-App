@@ -1,9 +1,13 @@
-
+import React from 'react';
 import GiftItem from './GiftItem';
-import {ExportGifts} from './GiftArray';
+import { useGifts } from './GiftsContext'; // ודא שזה הנתיב הנכון לקובץ הקונטקסט שלך
 
 const SearchResults = ({ searchTerm }) => {
-  const filteredItems = ExportGifts.filter(item =>
+  // קבלת המתנות מתוך הקונטקסט
+  const { gifts } = useGifts();
+
+  // סינון המתנות על פי מונח החיפוש
+  const filteredItems = gifts.filter(item =>
     item.name.toLowerCase().includes(searchTerm.toLowerCase())
   );
 

@@ -3,14 +3,17 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import { CartProvider } from './Components/CartContext'
+import { CartProvider } from './Components/CartContext';
+import { GiftsProvider } from './Components/GiftsContext'; 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-  <CartProvider>
-    <App />
-  </CartProvider>,
+    <CartProvider> {/* עוטף את כל האפליקציה בקונטקסט של העגלה */}
+      <GiftsProvider> {/* עוטף את כל האפליקציה בקונטקסט של המתנות */}
+        <App />
+      </GiftsProvider>
+    </CartProvider>
   </React.StrictMode>
 );
 

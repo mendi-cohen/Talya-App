@@ -9,6 +9,20 @@ export const GiftsProvider = ({ children }) => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
+  const pingServer = useCallback(async () => {
+    try {
+      const response = await fetch(`${process.env.REACT_APP_HOST_API}/ping`);
+      if (!response.ok) {
+        console.warn('Ping failed:', response.status);
+      }
+      else{
+        console.log("Ping succeeded!", response.status);
+      }
+    } catch (error) {
+      console.error('Ping error:', error);
+    }
+  }, []);
+
   const fetchGifts = useCallback(async () => {
     setLoading(true);
     setError(null);
@@ -36,7 +50,10 @@ export const GiftsProvider = ({ children }) => {
 
   useEffect(() => {
     fetchGifts();
-  }, [fetchGifts]);
+    const pingInterval = setInterval(pingServer, 5 * 60 * 1000); 
+    return () => clearInterval(pingInterval);
+  }, [fetchGifts, pingServer]);
+  
 
   const retryFetch = () => {
     fetchGifts();

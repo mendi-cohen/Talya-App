@@ -36,7 +36,6 @@ export const GiftsProvider = ({ children }) => {
       const giftsWithCorrectData = data.map(item => ({
         ...item,
         price: item.price ? parseFloat(item.price) : 0,
-        image: item.image ? item.image : null
       }));
       
       setGifts(giftsWithCorrectData);

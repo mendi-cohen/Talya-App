@@ -38,9 +38,13 @@ const GiftItem = ({
 
   return (
     <div className="bg-white rounded-lg shadow-md overflow-hidden m-4 flex flex-col h-full">
-      {image && (
-        <img src={image} alt={name} className="w-full h-48 object-cover" />
-      )}
+      {image ? (
+  <img src={image} alt={name} className="w-full h-48 object-cover" />
+) : (
+  <div className="w-full h-48 flex items-center justify-center bg-gray-200">
+    <span className="text-gray-600">תמונה לא זמינה</span>
+  </div>
+)}
       <div className="p-4 flex flex-col flex-grow">
         <h3 className="text-xl font-semibold mb-2">{name}</h3>
         <p className="text-gray-600 mb-4 flex-grow">{description}</p>

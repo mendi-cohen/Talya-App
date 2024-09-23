@@ -1,16 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import GiftItem from './GiftItem';
 import { useGifts } from './GiftsContext';
-import { ClipLoader } from 'react-spinners'; // או כל גלגל אחר שתבחר
+import { ClipLoader } from 'react-spinners'; 
 
 const GiftArray = () => {
   const { gifts } = useGifts();
-  const [sortOption, setSortOption] = useState('default'); // default sorting
-  const [loading, setLoading] = useState(true); // מצב טעינה
+  const [sortOption, setSortOption] = useState('default');
+  const [loading, setLoading] = useState(true); 
 
   useEffect(() => {
-    // סימולציה של טעינה (אם יש צורך בטעינה ממשית)
-    const timer = setTimeout(() => setLoading(false), 1000); // 1000ms = 1s
+  
+    const timer = setTimeout(() => setLoading(false), 1000); 
     return () => clearTimeout(timer);
   }, []);
 
@@ -60,7 +60,7 @@ const GiftArray = () => {
    </div>
       ) : (
         
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div  className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
           {sortedGifts.map((gift) => (
             <GiftItem
               key={gift.id}

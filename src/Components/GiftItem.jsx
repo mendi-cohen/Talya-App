@@ -39,15 +39,15 @@ const GiftItem = ({
   return (
     <div className="bg-white rounded-lg shadow-md overflow-hidden m-4 flex flex-col h-full">
       {image ? (
-  <img src={`${process.env.REACT_APP_HOST_API}${image}`} alt={name} className="w-full h-48 object-cover" />
+  <img src={`${process.env.REACT_APP_HOST_API}${image}`} alt={name} className="w-full h-full object-cover" />
 ) : (
   <div className="w-full h-48 flex items-center justify-center bg-gray-200">
     <span className="text-gray-600">תמונה לא זמינה</span>
   </div>
 )}
       <div className="p-4 flex flex-col flex-grow">
-        <h3 className="text-xl font-semibold mb-2">{name}</h3>
-        <p className="text-gray-600 mb-4 flex-grow">{description}</p>
+        <h3 dir="rtl" className="text-xl font-semibold mb-2">{name}</h3>
+        <p dir="rtl" className="text-gray-600 mb-2 flex-grow">{description}</p>
         <div className="flex flex-col sm:flex-row justify-between items-center gap-2">
           {buttonText !== "הוסף לעגלה" ? (
             <span className="text-lg font-bold text-[#3abcb1] mb-2 sm:mb-0">

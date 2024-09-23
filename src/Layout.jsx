@@ -85,7 +85,7 @@ const GiftShopLayout = () => {
               <button
                 className="md:hidden text-gray-600 hover:text-[#3abcb1]"
                 onClick={() => setIsMenuOpen(!isMenuOpen)}
-                aria-label="תפריט"
+                
               >
                 <Menu className="h-6 w-6" />
               </button>
@@ -155,7 +155,6 @@ const GiftShopLayout = () => {
         >
           <div className="p-4">
             <div className="flex justify-between items-center mb-4">
-              <h2 className="text-xl font-bold text-[#3abcb1]">תפריט</h2>
               <button
                 className="text-gray-500 hover:text-red-500"
                 onClick={() => setIsMenuOpen(false)}
@@ -194,7 +193,7 @@ const GiftShopLayout = () => {
 )}
 
 {/* Main Content */}
-<main className="container mx-auto px-4 py-8 flex-grow mt-20">
+<main className="container mx-auto px-4 py-8 flex-grow">
   {showSearchResults ? (
     <SearchResults searchTerm={searchTerm} />
   ) : (
@@ -204,7 +203,7 @@ const GiftShopLayout = () => {
 
       <div
         ref={cartRef}
-        className={`fixed top-0 right-0 h-full w-85 bg-white shadow-lg transform transition-transform duration-500 ease-in-out z-50 ${
+        className={`fixed top-0 right-0 h-full w-96 bg-white shadow-lg transform transition-transform duration-500 ease-in-out z-50 ${
           cartOpen ? "translate-x-0" : "translate-x-full"
         }`}
       >

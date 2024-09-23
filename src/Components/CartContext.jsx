@@ -21,7 +21,7 @@ export const CartProvider = ({ children }) => {
     const itemIndex = currentItems.findIndex(i => i.name === item.name);
 
     if (itemIndex > -1) {
-      toast.warning(`!המוצר נמצא כבר בעגלה`, {
+      toast.warning(`!המוצר נמצא כבר בעגלה כנס ובחר כמות`, {
         position: "top-right",
         autoClose: 1000,
         hideProgressBar: false,

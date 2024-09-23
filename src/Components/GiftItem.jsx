@@ -39,7 +39,7 @@ const GiftItem = ({
   return (
     <div className="bg-white rounded-lg shadow-md overflow-hidden m-4 flex flex-col h-full">
       {image ? (
-  <img src={image} alt={name} className="w-full h-48 object-cover" />
+  <img src={`${process.env.REACT_APP_HOST_API}${image}`} alt={name} className="w-full h-48 object-cover" />
 ) : (
   <div className="w-full h-48 flex items-center justify-center bg-gray-200">
     <span className="text-gray-600">תמונה לא זמינה</span>

@@ -4,6 +4,7 @@ import { Outlet, useLocation } from "react-router-dom";
 import SearchResults from "./Components/SerchResults";
 import ShopCart from "./Components/ShopCart";
 import { useCart } from "./Components/CartContext";
+import HeaderTitle from './Components/HeaderTitle';
 
 const GiftShopLayout = () => {
   const location = useLocation();
@@ -182,22 +183,24 @@ const GiftShopLayout = () => {
           </div>
         </div>
       </header>
+      {!showSearchResults && (
+  <>
+    <div
+      className="w-full h-[800px] bg-cover bg-center mb-8 mt-16"
+      style={{ backgroundImage: `url('../Images/i1.jpeg')` }}
+    ></div>
+    <HeaderTitle />
+  </>
+)}
 
-      <div
-        className="w-full h-[800px] bg-cover bg-center mb-8 mt-16"
-        style={{ backgroundImage: `url('../Images/i1.jpeg')` }}
-      ></div>
-
-
-
-      {/* Main Content */}
-      <main className="container mx-auto px-4 py-8 flex-grow">
-        {showSearchResults ? (
-          <SearchResults searchTerm={searchTerm} />
-        ) : (
-          <Outlet />
-        )}
-      </main>
+{/* Main Content */}
+<main className="container mx-auto px-4 py-8 flex-grow mt-20">
+  {showSearchResults ? (
+    <SearchResults searchTerm={searchTerm} />
+  ) : (
+    <Outlet />
+  )}
+</main>
 
       <div
         ref={cartRef}

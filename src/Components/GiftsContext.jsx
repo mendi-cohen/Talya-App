@@ -9,25 +9,13 @@ export const GiftsProvider = ({ children }) => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  const pingServer = useCallback(async () => {
-    try {
-      const response = await fetch(`${process.env.REACT_APP_HOST_API}/ping`);
-      if (!response.ok) {
-        console.warn('Ping failed:', response.status);
-      }
-      else{
-        console.log("Ping succeeded!", response.status);
-      }
-    } catch (error) {
-      console.error('Ping error:', error);
-    }
-  }, []);
+
 
   const fetchGifts = useCallback(async () => {
     setLoading(true);
     setError(null);
     try {
-      const response = await fetch(`${process.env.REACT_APP_HOST_API}/products/get_products`);
+      const response = await fetch(`${process.env.REACT_APP_HOST_API}/products/getAll`);
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
@@ -49,9 +37,7 @@ export const GiftsProvider = ({ children }) => {
 
   useEffect(() => {
     fetchGifts();
-    const pingInterval = setInterval(pingServer, 5 * 60 * 1000); 
-    return () => clearInterval(pingInterval);
-  }, [fetchGifts, pingServer]);
+  }, [fetchGifts]);
   
 
   const retryFetch = () => {
@@ -60,6 +46,7 @@ export const GiftsProvider = ({ children }) => {
 
   return (
     <GiftsContext.Provider value={{ gifts, loading, error, retryFetch }}>
+      {console.log('Gifts context value:', { gifts, loading, error })}
       {children}
     </GiftsContext.Provider>
   );

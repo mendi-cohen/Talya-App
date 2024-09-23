@@ -54,7 +54,7 @@ const ShopCart = () => {
           totalPrice={totalPrice}
           items={items}
           onClose={() => setShowOrderConfirmation(false)}
-          clearCart={items.forEach(item => removeFromCart(item.name))}
+          clearCart={()=>items.forEach(item => removeFromCart(item.name))}
         />
       )}
     </div>

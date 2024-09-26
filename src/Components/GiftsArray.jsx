@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import GiftItem from './GiftItem';
-import { useGifts } from './GiftsContext';
+import { useGifts } from '../Contexts/GiftsContext';
 import { ClipLoader } from 'react-spinners'; 
 
 const GiftArray = () => {
@@ -35,12 +35,12 @@ const GiftArray = () => {
 
   return (
     <div>
-      <div className="flex justify-between mb-4">
+      <div dir='rtl' className="flex justify-between mb-4 md:mt-10 ">
         <select
           id="sort"
           value={sortOption}
           onChange={handleSortChange}
-          className="border rounded p-2"
+          className="border rounded p-2 "
         >
           <option value="default">סנן לפי:</option>
           <option value="price-asc">מחיר - נמוך לגבוה</option>

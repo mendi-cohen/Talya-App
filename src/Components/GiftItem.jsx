@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Gift, Eye, Delete } from "lucide-react";
-import { useCart } from "./CartContext";
+import { useCart } from "../Contexts/CartContext";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 

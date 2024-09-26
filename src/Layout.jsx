@@ -1,13 +1,14 @@
 import React, { useState, useEffect, useRef } from "react";
 import { ShoppingCart, Search, Menu } from "lucide-react";
-import { Outlet, useLocation } from "react-router-dom";
+import { Outlet, useLocation, useNavigate } from "react-router-dom";
 import SearchResults from "./Components/SerchResults";
 import ShopCart from "./Components/ShopCart";
-import { useCart } from "./Components/CartContext";
-import HeaderTitle from './Components/HeaderTitle';
+import { useCart } from "./Contexts/CartContext";
+import HeaderTitle from "./Components/HeaderTitle";
 
 const GiftShopLayout = () => {
   const location = useLocation();
+  const navigate = useNavigate();
   const [searchTerm, setSearchTerm] = useState("");
   const [showSearchResults, setShowSearchResults] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -15,6 +16,22 @@ const GiftShopLayout = () => {
   const { items, updateItemsFromStorage } = useCart();
   const cartItemCount = items.length;
   const cartRef = useRef(null);
+  const [isPasswordModalOpen, setIsPasswordModalOpen] = useState(false);
+  const [password, setPassword] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
+
+  const correctPassword = `${process.env.REACT_APP_PASSWORD}`;
+
+  const handlePasswordSubmit = (e) => {
+    e.preventDefault();
+    if (password === correctPassword) {
+      setErrorMessage("");
+      setIsPasswordModalOpen(false);
+      navigate("/dashboard");
+    } else {
+      setErrorMessage("סיסמא שגויה, נסה שוב.");
+    }
+  };
 
   useEffect(() => {
     updateItemsFromStorage();
@@ -35,6 +52,7 @@ const GiftShopLayout = () => {
         !cartRef.current.contains(event.target)
       ) {
         setCartOpen(false);
+        setIsMenuOpen(false);
       }
     };
 
@@ -42,7 +60,7 @@ const GiftShopLayout = () => {
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
-  }, [cartOpen]);
+  }, [cartOpen, isMenuOpen]);
 
   const handleSearch = () => {
     if (searchTerm !== "") {
@@ -82,10 +100,45 @@ const GiftShopLayout = () => {
               >
                 טליה -דיזיין
               </h1>
+
+              {isPasswordModalOpen && (
+                <div className="fixed inset-0 bg-gray-600 bg-opacity-75 flex items-center justify-center">
+                  <div className="bg-white p-6 rounded-lg shadow-lg">
+                    <h2 className="text-2xl font-bold mb-4">הכנס סיסמא</h2>
+                    <form onSubmit={handlePasswordSubmit}>
+                      <input
+                        type="password"
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
+                        className="border border-gray-300 px-4 py-2 rounded-md w-full mb-4"
+                        placeholder="סיסמא"
+                        autoComplete="new-password"
+                      />
+                      {errorMessage && (
+                        <p className="text-red-500">{errorMessage}</p>
+                      )}
+                      <div className="flex justify-end">
+                        <button
+                          type="submit"
+                          className="px-4 py-2 bg-green-500 text-white rounded-md mr-2"
+                        >
+                          אישור
+                        </button>
+                        <button
+                          type="button"
+                          onClick={() => setIsPasswordModalOpen(false)}
+                          className="px-4 py-2 bg-red-500 text-white rounded-md"
+                        >
+                          ביטול
+                        </button>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+              )}
               <button
                 className="md:hidden text-gray-600 hover:text-[#3abcb1]"
                 onClick={() => setIsMenuOpen(!isMenuOpen)}
-                
               >
                 <Menu className="h-6 w-6" />
               </button>
@@ -149,6 +202,7 @@ const GiftShopLayout = () => {
 
         {/* Hamburger Menu */}
         <div
+          dir="rtl"
           className={`fixed top-0 right-0 w-64 bg-white shadow-lg transform transition-transform duration-300 ease-in-out z-50 ${
             isMenuOpen ? "translate-x-0" : "translate-x-full"
           } ${window.innerWidth > 768 ? "hidden" : ""}`}
@@ -156,15 +210,15 @@ const GiftShopLayout = () => {
           <div className="p-4">
             <div className="flex justify-between items-center mb-4">
               <button
-                className="text-gray-500 hover:text-red-500"
+                className=" text-lg text-red-500 hover:text-red-800"
                 onClick={() => setIsMenuOpen(false)}
               >
                 סגור
               </button>
             </div>
-            <ul className="space-y-4">
+            <ul className="space-y-4 flex flex-col items-center">
               <li>
-                <button className="text-[#3abcb1] hover:text-[#a5b4fc] transition duration-300 text-lg font-medium">
+                <button className="text-[#3abcb1] hover:text-[#a5b4fc]  transition duration-300 text-lg font-medium">
                   קטגוריות
                 </button>
               </li>
@@ -174,32 +228,34 @@ const GiftShopLayout = () => {
                 </button>
               </li>
               <li>
-                <button className="text-[#3abcb1] hover:text-[#a5b4fc] transition duration-300 text-lg font-medium">
+                <button className= "text-[#3abcb1] hover:text-[#a5b4fc] transition duration-300 text-lg font-medium">
                   צור קשר
+                </button>
+              </li>
+              <li>
+                <button
+                  onClick={() => setIsPasswordModalOpen(true)}
+                  className="px-4 py-2 bg-blue-500  text-white rounded-md"
+                >
+                  כניסת מנהל
                 </button>
               </li>
             </ul>
           </div>
         </div>
       </header>
-      {!showSearchResults && (
-  <>
-    <div
-      className="w-full h-[800px] bg-cover bg-center mb-8 mt-16"
-      style={{ backgroundImage: `url('../Images/i1.jpeg')` }}
-    ></div>
-    <HeaderTitle />
-  </>
-)}
+      {!showSearchResults &&
+        location.pathname !== "/dashboard" &&
+        location.pathname !== "/products" && <HeaderTitle />}
 
-{/* Main Content */}
-<main className="container mx-auto px-4 py-8 flex-grow">
-  {showSearchResults ? (
-    <SearchResults searchTerm={searchTerm} />
-  ) : (
-    <Outlet />
-  )}
-</main>
+      {/* Main Content */}
+      <main className="container mx-auto px-4 py-8 flex-grow">
+        {showSearchResults ? (
+          <SearchResults searchTerm={searchTerm} />
+        ) : (
+          <Outlet />
+        )}
+      </main>
 
       <div
         ref={cartRef}
@@ -251,6 +307,12 @@ const GiftShopLayout = () => {
               <h3 className="text-xl font-semibold mb-4">צור קשר</h3>
               <p>דוא"ל: info@originalgifts.co.il</p>
               <p>טלפון: 03-1234567</p>
+              <button
+                    onClick={() => setIsPasswordModalOpen(true)}
+                    className="px-4 py-2 bg-blue-500 text-white rounded-md"
+                  >
+                    כניסת מנהל
+                  </button>
             </div>
           </div>
           <div className="mt-8 text-center">

@@ -1,6 +1,6 @@
 // ShopCart.js
 import React, { useEffect ,useState } from 'react';
-import { useCart } from './CartContext';
+import { useCart } from '../Contexts/CartContext';
 import GiftItem from './GiftItem';
 import OrderConfirmation from './OrderConfirmation';
 

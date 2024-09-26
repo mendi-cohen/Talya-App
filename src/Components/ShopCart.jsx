@@ -5,7 +5,7 @@ import GiftItem from './GiftItem';
 import OrderConfirmation from './OrderConfirmation';
 
 const ShopCart = () => {
-  const { items, updateItemsFromStorage, removeFromCart } = useCart();
+  const { items, updateItemsFromStorage, removeFromCart ,clearCart } = useCart();
   const [showOrderConfirmation, setShowOrderConfirmation] = useState(false);
 
   useEffect(() => {
@@ -54,7 +54,7 @@ const ShopCart = () => {
           totalPrice={totalPrice}
           items={items}
           onClose={() => setShowOrderConfirmation(false)}
-          clearCart={()=>items.forEach(item => removeFromCart(item.name))}
+          clearCart={clearCart}
         />
       )}
     </div>

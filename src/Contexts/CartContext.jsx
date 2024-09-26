@@ -16,13 +16,18 @@ export const CartProvider = ({ children }) => {
     setItems(storedItems);
   }, []);
 
+  const clearCart = () => {
+    setItems([]); 
+    localStorage.setItem('items', JSON.stringify([])); 
+  };
+
   const addToCart = (item) => {
     const currentItems = [...items];
     const itemIndex = currentItems.findIndex(i => i.name === item.name);
 
     if (itemIndex > -1) {
       toast.warning(`!המוצר נמצא כבר בעגלה כנס ובחר כמות`, {
-        position: "top-right",
+        position: "top-center",
         autoClose: 1000,
         hideProgressBar: false,
         closeOnClick: true,
@@ -35,7 +40,7 @@ export const CartProvider = ({ children }) => {
       localStorage.setItem('items', JSON.stringify(newItems));
       setItems(newItems);
       toast.success(`! המוצר נוסף לעגלה`, {
-        position: "top-right",
+        position: "top-center",
         autoClose: 1000,
         hideProgressBar: false,
         closeOnClick: true,
@@ -52,7 +57,7 @@ export const CartProvider = ({ children }) => {
   };
 
   return (
-    <CartContext.Provider value={{ items, addToCart, removeFromCart, updateItemsFromStorage }}>
+    <CartContext.Provider value={{ items, addToCart, removeFromCart, updateItemsFromStorage ,clearCart }}>
       {children}
     </CartContext.Provider>
   );

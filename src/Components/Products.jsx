@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { useGifts } from '../Contexts/GiftsContext';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const ProductsForAdmin = () => {
   const { gifts, loading, error, retryFetch } = useGifts();
@@ -7,6 +9,18 @@ const ProductsForAdmin = () => {
   const [currentProduct, setCurrentProduct] = useState(null);
   const [formData, setFormData] = useState({ name: '', price: '', description: '', image: null, category: '' });
   const [selectedProducts, setSelectedProducts] = useState(new Set());
+
+
+
+  const alert = (type)=> toast.success(` !${type} בהצלחה `, {
+      position: "top-center",
+      autoClose: 1000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: false,
+      draggable: true,
+    });
+
 
   const handleEdit = (product) => {
     setCurrentProduct(product);
@@ -33,6 +47,7 @@ const ProductsForAdmin = () => {
           method: 'DELETE',
         });
         if (response.ok) {
+          alert("המוצר נמחק");
           retryFetch();
         } else {
           throw new Error('נכשל במחיקת המוצר');
@@ -60,6 +75,7 @@ const ProductsForAdmin = () => {
       
       if (allDeleted) {
         retryFetch();
+        alert("המוצרים נמחקו");
       } else {
         throw new Error('נכשל במחיקת המוצרים');
       }
@@ -103,6 +119,7 @@ const ProductsForAdmin = () => {
         body: formDataToSend,
       });
       if (response.ok) {
+        currentProduct ? alert(" המוצר עודכן "): alert("המוצר נוסף");
         setIsModalOpen(false);
         retryFetch();
       } else {

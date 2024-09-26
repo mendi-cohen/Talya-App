@@ -4,14 +4,17 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { CartProvider } from './Contexts/CartContext';
-import { GiftsProvider } from './Contexts/GiftsContext'; 
+import { GiftsProvider } from './Contexts/GiftsContext';
+import { OrderProvider } from './Contexts/OrderContext'; // ייבא את OrderProvider
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     <CartProvider> {/* עוטף את כל האפליקציה בקונטקסט של העגלה */}
       <GiftsProvider> {/* עוטף את כל האפליקציה בקונטקסט של המתנות */}
-        <App />
+        <OrderProvider> {/* עוטף את כל האפליקציה בקונטקסט של ההזמנות */}
+          <App />
+        </OrderProvider>
       </GiftsProvider>
     </CartProvider>
   </React.StrictMode>

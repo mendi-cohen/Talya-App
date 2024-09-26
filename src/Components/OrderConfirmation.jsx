@@ -28,6 +28,7 @@ const OrderConfirmation = ({ totalPrice, items, onClose ,clearCart}) => {
         phone: customerDetails.phone,
         items: items,
         totalPrice: totalPrice,
+        completed: false
       }),
     });
 
@@ -48,7 +49,7 @@ const OrderConfirmation = ({ totalPrice, items, onClose ,clearCart}) => {
     console.log('Response from server:', data);
     onClose();
     toast.info(` ההזמנה נשלחה בהצלחה ניצור איתך קשר בהקדם למשלוח `, {
-      position: "top-right",
+      position: "top-center",
       autoClose: 3000,
       hideProgressBar: false,
       closeOnClick: true,

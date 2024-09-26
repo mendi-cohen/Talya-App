@@ -244,9 +244,8 @@ const GiftShopLayout = () => {
           </div>
         </div>
       </header>
-      {!showSearchResults &&
-        location.pathname !== "/dashboard" &&
-        location.pathname !== "/products" && <HeaderTitle />}
+      {!showSearchResults &&location.pathname === "/" &&
+        <HeaderTitle />}
 
       {/* Main Content */}
       <main className="container mx-auto px-4 py-8 flex-grow">

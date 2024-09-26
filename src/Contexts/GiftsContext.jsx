@@ -25,9 +25,7 @@ export const GiftsProvider = ({ children }) => {
         ...item,
         price: item.price ? parseFloat(item.price) : 0,
       }));
-      console.log("CAT!!",data.map(item=>({
-       item: item.category
-      })));
+  
       
       setGifts(giftsWithCorrectData);
     } catch (error) {
@@ -49,7 +47,6 @@ export const GiftsProvider = ({ children }) => {
 
   return (
     <GiftsContext.Provider value={{ gifts, loading, error, retryFetch }}>
-      {console.log('Gifts context value:', { gifts, loading, error })}
       {children}
     </GiftsContext.Provider>
   );

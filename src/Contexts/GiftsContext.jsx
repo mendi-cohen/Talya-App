@@ -25,6 +25,9 @@ export const GiftsProvider = ({ children }) => {
         ...item,
         price: item.price ? parseFloat(item.price) : 0,
       }));
+      console.log("CAT!!",data.map(item=>({
+       item: item.category
+      })));
       
       setGifts(giftsWithCorrectData);
     } catch (error) {

@@ -23,6 +23,7 @@ const Dashboard = () => {
         </button>
         <button
           className=" relative w-full h-12 px-6 py-3 bg-green-500 text-white rounded-lg hover:bg-blue-700 transition duration-300 flex items-center justify-center"
+          onClick={() => navigate('/products')}
         >
           ניהול מוצרים
         </button>

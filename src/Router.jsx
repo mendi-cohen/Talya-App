@@ -20,7 +20,6 @@ const MyRouter = () => {
             <Route path="/shopcart" element={<ShopCart />} />
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/products" element={<Products />} />
-            <Route path="/products" element={<Products />} />
             <Route path="/main_orders" element={<MainOrders />} />
             <Route path="/new_orders" element={<NewOrders />} />
             <Route path="/comleted_orders" element={<ComletedOrders />} />

@@ -10,17 +10,14 @@ const ProductsForAdmin = () => {
   const [formData, setFormData] = useState({ name: '', price: '', description: '', image: null, category: '' });
   const [selectedProducts, setSelectedProducts] = useState(new Set());
 
-
-
-  const alert = (type)=> toast.success(` !${type} בהצלחה `, {
-      position: "top-center",
-      autoClose: 1000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: false,
-      draggable: true,
-    });
-
+  const alert = (type) => toast.success(`!${type} בהצלחה`, {
+    position: "top-center",
+    autoClose: 1000,
+    hideProgressBar: false,
+    closeOnClick: true,
+    pauseOnHover: false,
+    draggable: true,
+  });
 
   const handleEdit = (product) => {
     setCurrentProduct(product);
@@ -40,7 +37,7 @@ const ProductsForAdmin = () => {
     setIsModalOpen(true);
   };
 
-  const handleDelete = async (id , ProName) => {
+  const handleDelete = async (id, ProName) => {
     if (window.confirm(`האם אתה בטוח שברצונך למחוק את ${ProName}?`)) {
       try {
         const response = await fetch(`${process.env.REACT_APP_HOST_API}/products/${id}`, {
@@ -62,7 +59,7 @@ const ProductsForAdmin = () => {
     if (selectedProducts.size === 0 || !window.confirm('האם אתה בטוח שברצונך למחוק את המוצרים שנבחרו?')) {
       return;
     }
-    
+
     try {
       const deletePromises = Array.from(selectedProducts).map(id => 
         fetch(`${process.env.REACT_APP_HOST_API}/products/${id}`, {
@@ -72,7 +69,7 @@ const ProductsForAdmin = () => {
 
       const results = await Promise.all(deletePromises);
       const allDeleted = results.every(res => res.ok);
-      
+
       if (allDeleted) {
         retryFetch();
         alert("המוצרים נמחקו");
@@ -110,7 +107,7 @@ const ProductsForAdmin = () => {
     const url = currentProduct 
       ? `${process.env.REACT_APP_HOST_API}/products/${currentProduct.id}`
       : `${process.env.REACT_APP_HOST_API}/products/addOne`;
-    
+
     const method = currentProduct ? 'PUT' : 'POST';
 
     try {
@@ -119,7 +116,7 @@ const ProductsForAdmin = () => {
         body: formDataToSend,
       });
       if (response.ok) {
-        currentProduct ? alert(" המוצר עודכן "): alert("המוצר נוסף");
+        currentProduct ? alert("המוצר עודכן") : alert("המוצר נוסף");
         setIsModalOpen(false);
         retryFetch();
       } else {
@@ -149,43 +146,58 @@ const ProductsForAdmin = () => {
       >
         מחק מוצרים שנבחרו
       </button>
-     
+
+      {/* טבלה רספונסיבית */}
       <div className="overflow-x-auto">
-  <table className="min-w-full bg-white shadow-lg rounded-lg">
-    <thead className="bg-gray-200 rounded-t-lg">
-      <tr>
-        <th className="py-4 px-6 border-b text-left">בחר</th>
-        <th className="py-4 px-6 border-b text-left">שם</th>
-        <th className="py-4 px-6 border-b text-left">מחיר</th>
-        <th className="py-4 px-6 border-b text-left">תיאור</th>
-        <th className="py-4 px-6 border-b text-left">קטגוריה</th>
-        <th className="py-4 px-6 border-b text-left">פעולות</th>
-      </tr>
-    </thead>
-    <tbody>
-      {gifts.map((gift) => (
-        <tr key={gift.id} className="hover:bg-gray-100">
-          <td className="py-3 px-6 border-b text-center">
-            <input type="checkbox" checked={selectedProducts.has(gift.id)} onChange={() => handleCheckboxChange(gift.id)} className="form-checkbox h-5 w-5 text-blue-600" />
-          </td>
-          <td className="py-3 px-6 border-b ">{gift.name}</td>
-          <td className="py-3 px-6 border-b">{gift.price}</td>
-          <td className="py-3 px-6 border-b">{gift.description}</td>
-          <td className="py-3 px-6 border-b">{gift.category}</td>
-          <td className="py-3 px-6 border-b ">
-            <button onClick={() => handleEdit(gift)} className="bg-blue-500 hover:bg-blue-700 text-white py-1 px-3 rounded">ערוך</button>
-            <button onClick={() => handleDelete(gift.id, gift.name)} className="bg-red-500 hover:bg-red-700 text-white py-1 px-3 rounded">מחק</button>
-          </td>
-        </tr>
-      ))}
-    </tbody>
-  </table>
-</div>
+        <table className="min-w-full bg-white shadow-lg rounded-lg text-xs md:text-sm">
+          <thead className="bg-gray-200 rounded-t-lg">
+            <tr>
+              <th className="py-4 px-6 border-b text-left">בחר</th>
+              <th className="py-4 px-6 border-b text-left">שם</th>
+              <th className="py-4 px-6 border-b text-left">מחיר</th>
+              <th className="py-4 px-6 border-b text-left">תיאור</th>
+              <th className="py-4 px-6 border-b text-left">קטגוריה</th>
+              <th className="py-4 px-6 border-b text-left">פעולות</th>
+            </tr>
+          </thead>
+          <tbody>
+            {gifts.map((gift) => (
+              <tr key={gift.id} className="hover:bg-gray-100">
+                <td className="py-3 px-6 border-b text-center">
+                  <input 
+                    type="checkbox" 
+                    checked={selectedProducts.has(gift.id)} 
+                    onChange={() => handleCheckboxChange(gift.id)} 
+                    className="form-checkbox h-4 w-4 text-blue-600" 
+                  />
+                </td>
+                <td className="py-3 px-6 border-b ">{gift.name}</td>
+                <td className="py-3 px-6 border-b">{gift.price}</td>
+                <td className="py-3 px-6 border-b">{gift.description}</td>
+                <td className="py-3 px-6 border-b">{gift.category}</td>
+                <td className="py-3 px-6 border-b flex gap-2">
+                  <button 
+                    onClick={() => handleEdit(gift)} 
+                    className="bg-blue-500 hover:bg-blue-700 text-white py-1 px-3 rounded text-xs md:text-sm"
+                  >
+                    ערוך
+                  </button>
+                  <button 
+                    onClick={() => handleDelete(gift.id, gift.name)} 
+                    className="bg-red-500 hover:bg-red-700 text-white py-1 px-3 rounded text-xs md:text-sm"
+                  >
+                    מחק
+                  </button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
 
-
-
+      {/* מודאל */}
       {isModalOpen && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center">
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center px-4">
           <div className="bg-white p-6 rounded-lg w-full max-w-md">
             <h2 className="text-xl font-bold mb-4">{currentProduct ? 'ערוך מוצר' : 'הוסף מוצר חדש'}</h2>
             <form onSubmit={handleSubmit}>
@@ -199,7 +211,6 @@ const ProductsForAdmin = () => {
                   value={formData.name}
                   onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                   className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                  required
                 />
               </div>
               <div className="mb-4">
@@ -208,64 +219,19 @@ const ProductsForAdmin = () => {
                 </label>
                 <input
                   id="price"
-                  type="number"
+                  type="text"
                   value={formData.price}
                   onChange={(e) => setFormData({ ...formData, price: e.target.value })}
                   className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                  required
                 />
               </div>
-              <div className="mb-4">
-                <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="description">
-                  תיאור
-                </label>
-                <textarea
-                  id="description"
-                  value={formData.description}
-                  onChange={(e) => setFormData({ ...formData, description: e.target.value })}
-                  className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                  required
-                />
-              </div>
-              <div className="mb-4">
-                <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="image">
-                  תמונה
-                </label>
-                <input
-                  id="image"
-                  type="file"
-                  accept="image/*"
-                  onChange={(e) => setFormData({ ...formData, image: e.target.files[0] })}
-                  className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                />
-              </div>
-              <div className="mb-4">
-                <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="category">
-                  קטגוריה
-                </label>
-                <input
-                  id="category"
-                  type="text"
-                  value={formData.category}
-                  onChange={(e) => setFormData({ ...formData, category: e.target.value })}
-                  className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                />
-              </div>
-              <div className="flex items-center justify-between">
-                <button 
-                  type="button" 
-                  onClick={() => setIsModalOpen(false)}
-                  className="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded"
-                >
-                  סגור
-                </button>
-                <button 
-                  type="submit" 
-                  className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-                >
-                  {currentProduct ? 'שמור שינויים' : 'הוסף מוצר'}
-                </button>
-              </div>
+              {/* שדות נוספים */}
+              <button
+                type="submit"
+                className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+              >
+                {currentProduct ? 'שמור שינויים' : 'הוסף מוצר'}
+              </button>
             </form>
           </div>
         </div>

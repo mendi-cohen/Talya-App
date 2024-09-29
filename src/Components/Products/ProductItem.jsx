@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Gift, Eye, EyeOff, Delete } from "lucide-react";
-import { useCart } from "../Contexts/CartContext";
+import { useCart } from "../../Contexts/CartContext";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -12,6 +12,7 @@ const GiftItem = ({
   quantity,
   buttonText,
   removeItem,
+  caegory,
 }) => {
   const { addToCart, removeFromCart } = useCart();
   const [localQuantity, setLocalQuantity] = useState(quantity || 1);
@@ -113,30 +114,32 @@ const GiftItem = ({
                   onClick={() => setShowDescription(!showDescription)}
                 >
                   {showDescription ? (
-                    <EyeOff className="h-4 w-4 sm:h-5 sm:w-5 mr-1 sm:mr-2" />
+                    <EyeOff className="h-10 w-4 sm:h-5 sm:w-5 mr-1 sm:mr-2" />
                   ) : (
-                    <Eye className="h-4 w-4 sm:h-5 sm:w-5 mr-1 sm:mr-2" />
+                    <Eye className="h-10 w-4 sm:h-5 sm:w-5 mr-1 sm:mr-2" />
                   )}
                   {showDescription ? "הסתר פרטים" : "פרטים"}
                 </button>
 
                 <button
                   onClick={handleClick}
-                  className="bg-[#3abcb1] text-white px-2 py-1 sm:px-4 sm:py-2 rounded-md hover:bg-purple-700 transition duration-300 flex items-center justify-center text-sm sm:text-base"
+                  className="h-10 bg-[#3abcb1] text-white px-2 py-1 sm:px-4 sm:py-2 rounded-md hover:bg-purple-700 transition duration-300 flex items-center justify-center text-sm sm:text-base"
                 >
-                  <Gift className="h-4 w-4 sm:h-5 sm:w-5 mr-1 sm:mr-2" />
+                  <Gift className="h-10 w-4 sm:h-10 sm:w-5 mr-1 sm:mr-2" />
                   {buttonText}
                 </button>
               </>
             )}
             {buttonText === "הסר מהעגלה" && (
-              <button
-                onClick={removeItem}
-                className="bg-[#3abcb1] text-white px-2 py-1 sm:px-4 sm:py-2 rounded-md hover:bg-purple-700 transition duration-300 flex items-center justify-center text-sm sm:text-base"
-              >
-                <Delete className="h-4 w-4 sm:h-5 sm:w-5 mr-1 sm:mr-2" />
-                {buttonText}
-              </button>
+              <div className="mt-2 w-full">
+                <button
+                  onClick={removeItem}
+                  className="bg-[#3abcb1] text-white w-full px-2 py-1 px-4 py-2 rounded-md hover:bg-purple-700 transition duration-300 flex items-center justify-center text-sm sm:text-base"
+                >
+                  <Delete className="h-4 w-4 sm:h-5 sm:w-5 mr-1 sm:mr-3" />
+                  {buttonText}
+                </button>
+              </div>
             )}
           </div>
         </div>

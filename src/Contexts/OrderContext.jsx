@@ -25,6 +25,10 @@ export const OrderProvider = ({ children }) => {
       setLoading(false);
     }
   };
+  const addOrder = (newOrder) => {
+    setOrders((prevOrders) => [...prevOrders, newOrder]);
+    setOrderCount((prevCount) => prevCount + 1); // עדכון ספירת ההזמנות
+  };
 
   useEffect(() => {
     fetchOrders(); // טען את ההזמנות כשחלה עלייה בקומפוננטה
@@ -73,6 +77,7 @@ export const OrderProvider = ({ children }) => {
       setSearchTerm,
       fetchOrders,
       updateOrderStatus,
+      addOrder,
       filteredOrders
     }}>
       {children}

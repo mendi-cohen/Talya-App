@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import { X, User, Mail, MapPin, Phone } from 'lucide-react';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { useOrderContext } from '../../Contexts/OrderContext'
 
 const OrderConfirmation = ({ totalPrice, items, onClose ,clearCart}) => {
   const [customerDetails, setCustomerDetails] = useState({
@@ -11,6 +12,7 @@ const OrderConfirmation = ({ totalPrice, items, onClose ,clearCart}) => {
     address: '',
     phone: ''
   });
+  const { addOrder } = useOrderContext();
 
   const handleSubmit = async (e) => {
   e.preventDefault();
@@ -48,6 +50,17 @@ const OrderConfirmation = ({ totalPrice, items, onClose ,clearCart}) => {
     const data = await response.json();
     console.log('Response from server:', data);
     onClose();
+    addOrder({
+      id: data.id, // ודא שה-ID נכון
+      name: customerDetails.name,
+      email: customerDetails.email,
+      address: customerDetails.address,
+      phone: customerDetails.phone,
+      items: items,
+      totalPrice: totalPrice,
+      completed: false
+    });
+
     toast.info(` ההזמנה נשלחה בהצלחה ניצור איתך קשר בהקדם למשלוח `, {
       position: "top-center",
       autoClose: 3000,

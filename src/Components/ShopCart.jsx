@@ -1,8 +1,8 @@
 // ShopCart.js
 import React, { useEffect ,useState } from 'react';
 import { useCart } from '../Contexts/CartContext';
-import GiftItem from './GiftItem';
-import OrderConfirmation from './OrderConfirmation';
+import GiftItem from './Products/ProductItem';
+import OrderConfirmation from './Orders/OrderConfirmation';
 
 const ShopCart = () => {
   const { items, updateItemsFromStorage, removeFromCart ,clearCart } = useCart();

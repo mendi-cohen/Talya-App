@@ -30,7 +30,7 @@ const CompletedOrders = () => {
   // פונקציה לסינון ההזמנות
   const filteredOrders = completedOrders.filter(order => 
     order.name.includes(searchTerm) || order.id.toString().includes(searchTerm)
-  );
+  ).reverse();;
 
   if (error) {
     return <p>{error}</p>;
@@ -53,7 +53,7 @@ const CompletedOrders = () => {
           placeholder="חפש לפי שם או מספר הזמנה"
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
-          className="border rounded p-2 w-1/3" // תיבת חיפוש בצד ימין
+          className="border rounded p-2 w-1/3" 
         />
       </div>
 
@@ -95,7 +95,7 @@ const CompletedOrders = () => {
             </div>
           ))
         ) : (
-          <p className="text-center text-xl font-semibold">אין הזמנות שהושלמו להצגה</p>
+          <p className="text-center text-xl font-semibold">אין הזמנות שהושלמו </p>
         )}
       </div>
 

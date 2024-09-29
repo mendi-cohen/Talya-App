@@ -12,7 +12,7 @@ const Dashboard = () => {
       <div className="space-y-4 w-full max-w-xs"> 
         <button
           className="relative w-full h-12 px-6 py-3 bg-blue-500 text-white rounded-lg hover:bg-blue-700 transition duration-300 flex items-center justify-center"
-          onClick={() => navigate('/main_orders')}
+          onClick={() => navigate('/dashboard/orders')}
         >
           {orderCount > 0 && (
             <span className="bg-red-500 text-white text-lg rounded-full px-3 py-1 mr-3"> 
@@ -23,7 +23,7 @@ const Dashboard = () => {
         </button>
         <button
           className=" relative w-full h-12 px-6 py-3 bg-green-500 text-white rounded-lg hover:bg-blue-700 transition duration-300 flex items-center justify-center"
-          onClick={() => navigate('/products')}
+          onClick={() => navigate('/dashboard/products')}
         >
           ניהול מוצרים
         </button>

@@ -62,6 +62,15 @@ const GiftShopLayout = () => {
     };
   }, [cartOpen, isMenuOpen]);
 
+  
+  useEffect(() => {
+    if (searchTerm.trim() === "") {
+      setShowSearchResults(false);
+    } else {
+      setShowSearchResults(true);
+    }
+  }, [searchTerm]);
+
   const handleSearch = () => {
     if (searchTerm !== "") {
       setShowSearchResults(true);
@@ -148,7 +157,8 @@ const GiftShopLayout = () => {
             <nav className="hidden md:flex">
               <ul className="flex flex-col md:flex-row items-center space-y-4 md:space-y-0 md:space-x-6">
                 <li>
-                  <button className="text-[#3abcb1] hover:text-[#a5b4fc] transition duration-300 text-lg font-medium flex items-center space-x-2">
+                  <button className="text-[#3abcb1] hover:text-[#a5b4fc] transition duration-300 text-lg font-medium flex items-center space-x-2"
+                  onClick={() => navigate('/categorys')}>
                     <span>קטגוריות</span>
                   </button>
                 </li>
@@ -218,7 +228,8 @@ const GiftShopLayout = () => {
             </div>
             <ul className="space-y-4 flex flex-col items-center">
               <li>
-                <button className="text-[#3abcb1] hover:text-[#a5b4fc]  transition duration-300 text-lg font-medium">
+                <button className="text-[#3abcb1] hover:text-[#a5b4fc]  transition duration-300 text-lg font-medium"
+                 onClick={() => navigate('/categorys')}>
                   קטגוריות
                 </button>
               </li>
@@ -277,31 +288,15 @@ const GiftShopLayout = () => {
       </div>
 
       {/* Footer */}
-      <footer className="bg-gray-800 text-white py-8">
+      <footer dir="rtl" className="bg-gray-800 text-white py-8">
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-8 text-center sm:text-right">
             <div>
               <h3 className="text-xl font-semibold mb-4">אודותינו</h3>
-              <p>אנחנו מספקים מתנות מקוריות ויצירתיות לכל אירוע ולכל אדם.</p>
+              <p> אנחנו מספקים מתנות מקוריות ויצירתיות לכל אירוע ולכל אדם  </p>
+              <p> אצלנו לא תשלם לפני שהמתנה אצלך ביד ותהיה מרוצה! </p>
             </div>
-            <div>
-              <h3 className="text-xl font-semibold mb-4">קישורים מהירים</h3>
-              <ul className="space-y-2">
-                <li>
-                  <button className="hover:text-purple-400">תקנון</button>
-                </li>
-                <li>
-                  <button className="hover:text-purple-400">
-                    מדיניות פרטיות
-                  </button>
-                </li>
-                <li>
-                  <button className="hover:text-purple-400">
-                    שאלות נפוצות
-                  </button>
-                </li>
-              </ul>
-            </div>
+        
             <div>
               <h3 className="text-xl font-semibold mb-4">צור קשר</h3>
               <p>דוא"ל: info@originalgifts.co.il</p>
@@ -315,7 +310,7 @@ const GiftShopLayout = () => {
             </div>
           </div>
           <div className="mt-8 text-center">
-            <p>&copy; 2024 מתנות מקוריות. כל הזכויות שמורות.</p>
+            <p>&copy; 2024 טליה-דיזיין. כל הזכויות שמורות.</p>
           </div>
         </div>
       </footer>

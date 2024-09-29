@@ -1,5 +1,5 @@
 import React from 'react';
-import GiftItem from './GiftItem';
+import GiftItem from './Products/ProductItem';
 import { useGifts } from '../Contexts/GiftsContext'; 
 
 const SearchResults = ({ searchTerm }) => {

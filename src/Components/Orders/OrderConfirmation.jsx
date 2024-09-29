@@ -15,15 +15,41 @@ const OrderConfirmation = ({ totalPrice, items, onClose ,clearCart}) => {
   const { addOrder } = useOrderContext();
 
   const handleSubmit = async (e) => {
-  e.preventDefault();
-  onClose();
-  try {
-    const response = await fetch(`${process.env.REACT_APP_HOST_API}/orders/addNewOrder`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
+    e.preventDefault();
+    onClose();
+    try {
+      const response = await fetch(`${process.env.REACT_APP_HOST_API}/orders/addNewOrder`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          name: customerDetails.name,
+          email: customerDetails.email,
+          address: customerDetails.address,
+          phone: customerDetails.phone,
+          items: items,
+          totalPrice: totalPrice,
+          completed: false
+        }),
+      });
+  
+      if (!response.ok) {
+        toast.error(` אופס! אירעה תקלה נסה שוב`, {
+          position: "top-center",
+          autoClose: 1000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: false,
+          draggable: true,
+        });
+        throw new Error('Network response was not ok');
+      }
+  
+      const data = await response.json();
+      console.log('Response from server:', data);
+      addOrder({
+        id: data.id, 
         name: customerDetails.name,
         email: customerDetails.email,
         address: customerDetails.address,
@@ -31,49 +57,35 @@ const OrderConfirmation = ({ totalPrice, items, onClose ,clearCart}) => {
         items: items,
         totalPrice: totalPrice,
         completed: false
-      }),
-    });
-
-    if (!response.ok) {
-       toast.error(` אופס! אירעה תקלה נסה שוב`, {
-      position: "top-center",
-      autoClose: 1000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: false,
-      draggable: true,
-    });
-      throw new Error('Network response was not ok');
+      });
+  
+      // שליחת הודעת WhatsApp
+      await fetch(`${process.env.REACT_APP_HOST_API}/orders/sendmessege`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          id: data.id,
+        })
       
+      });
+  
+      toast.info(` ההזמנה נשלחה בהצלחה ניצור איתך קשר בהקדם למשלוח `, {
+        position: "top-center",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: false,
+        draggable: true,
+      });
+  
+      clearCart();
+    } catch (error) {
+      console.error('Error sending order:', error);
     }
-
-    const data = await response.json();
-    console.log('Response from server:', data);
-    onClose();
-    addOrder({
-      id: data.id, // ודא שה-ID נכון
-      name: customerDetails.name,
-      email: customerDetails.email,
-      address: customerDetails.address,
-      phone: customerDetails.phone,
-      items: items,
-      totalPrice: totalPrice,
-      completed: false
-    });
-
-    toast.info(` ההזמנה נשלחה בהצלחה ניצור איתך קשר בהקדם למשלוח `, {
-      position: "top-center",
-      autoClose: 3000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: false,
-      draggable: true,
-    });
-    clearCart();
-  } catch (error) {
-    console.error('Error sending order:', error);
-  }
-};
+  };
+  
 
 
   const handleChange = (e) => {

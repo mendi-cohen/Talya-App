@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import { ShoppingCart, Search, Menu } from "lucide-react";
+import { ShoppingCart, Search, Menu, Eye, EyeOff } from "lucide-react";
 import { Outlet, useLocation, useNavigate } from "react-router-dom";
 import SearchResults from "./Components/SerchResults";
 import ShopCart from "./Components/ShopCart";
@@ -19,6 +19,7 @@ const GiftShopLayout = () => {
   const [isPasswordModalOpen, setIsPasswordModalOpen] = useState(false);
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
 
   const correctPassword = `${process.env.REACT_APP_PASSWORD}`;
 
@@ -115,14 +116,27 @@ const GiftShopLayout = () => {
                   <div className="bg-white p-6 rounded-lg shadow-lg">
                     <h2 className="text-2xl font-bold mb-4">הכנס סיסמא</h2>
                     <form onSubmit={handlePasswordSubmit}>
-                      <input
-                        type="password"
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
-                        className="border border-gray-300 px-4 py-2 rounded-md w-full mb-4"
-                        placeholder="סיסמא"
-                        autoComplete="new-password"
-                      />
+                      <div className="flex items-center mb-4">
+                        <input
+                          type={showPassword ? "text" : "password"} // להחליף בין טקסט לסיסמא
+                          value={password}
+                          onChange={(e) => setPassword(e.target.value)}
+                          className="border border-gray-300 px-4 py-2 rounded-md w-full"
+                          placeholder="סיסמא"
+                          autoComplete="new-password"
+                        />
+                        <button
+                          type="button"
+                          onClick={() => setShowPassword(!showPassword)} // החלף את מצב הסיסמא
+                          className="ml-2"
+                        >
+                          {showPassword ? (
+                            <EyeOff className="h-6 w-6 text-gray-500" />
+                          ) : (
+                            <Eye className="h-6 w-6 text-gray-500" />
+                          )}
+                        </button>
+                      </div>
                       {errorMessage && (
                         <p className="text-red-500">{errorMessage}</p>
                       )}

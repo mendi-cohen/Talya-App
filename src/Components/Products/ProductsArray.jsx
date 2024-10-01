@@ -1,15 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import GiftItem from './ProductItem';
 import { useGifts } from '../../Contexts/GiftsContext';
-import { ClipLoader } from 'react-spinners'; 
+import { ClipLoader } from 'react-spinners';
 
 const ProductArray = ({ category }) => {
   const { gifts } = useGifts();
   const [sortOption, setSortOption] = useState('default');
-  const [loading, setLoading] = useState(true); 
+  const [loading, setLoading] = useState(true);
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 12;
 
   useEffect(() => {
-    const timer = setTimeout(() => setLoading(false), 1000); 
+    const timer = setTimeout(() => setLoading(false), 1000);
     return () => clearTimeout(timer);
   }, []);
 
@@ -34,6 +36,20 @@ const ProductArray = ({ category }) => {
 
   const filteredGifts = category ? sortedGifts.filter(gift => gift.category === category) : sortedGifts;
 
+  // חישוב דפדוף
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const currentItems = filteredGifts.slice(indexOfFirstItem, indexOfLastItem);
+
+  const totalPages = Math.ceil(filteredGifts.length / itemsPerPage);
+
+  const nextPage = () => {
+    setCurrentPage(prev => Math.min(prev + 1, totalPages));
+  };
+
+  const prevPage = () => {
+    setCurrentPage(prev => Math.max(prev - 1, 1));
+  };
 
   return (
     <div>
@@ -60,18 +76,37 @@ const ProductArray = ({ category }) => {
           </p>
         </div>
       ) : (
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-          {filteredGifts.map((gift) => (
-            <GiftItem
-              key={gift.id}
-              name={gift.name}
-              description={gift.description}
-              price={gift.price}
-              image={gift.image}
-              buttonText="הוסף לעגלה"
-            />
-          ))}
-        </div>
+        <>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+            {currentItems.map((gift) => (
+              <GiftItem
+                key={gift.id}
+                name={gift.name}
+                description={gift.description}
+                price={gift.price}
+                image={gift.image}
+                buttonText="הוסף לעגלה"
+              />
+            ))}
+          </div>
+          <div className="mt-4 flex justify-center items-center space-x-4">
+            <button
+              onClick={prevPage}
+              disabled={currentPage === 1}
+              className="px-4 py-2 bg-blue-500 text-white rounded disabled:bg-gray-300"
+            >
+              הקודם
+            </button>
+            <span>עמוד {currentPage} מתוך {totalPages}</span>
+            <button
+              onClick={nextPage}
+              disabled={currentPage === totalPages}
+              className="px-4 py-2 bg-blue-500 text-white rounded disabled:bg-gray-300"
+            >
+              הבא
+            </button>
+          </div>
+        </>
       )}
     </div>
   );

@@ -176,16 +176,6 @@ const GiftShopLayout = () => {
                     <span>קטגוריות</span>
                   </button>
                 </li>
-                <li>
-                  <button className="text-[#3abcb1] hover:text-[#a5b4fc] transition duration-300 text-lg font-medium flex items-center space-x-2">
-                    <span>מבצעים</span>
-                  </button>
-                </li>
-                <li>
-                  <button className="text-[#3abcb1] hover:text-[#a5b4fc] transition duration-300 text-lg font-medium flex items-center space-x-2">
-                    <span>צור קשר</span>
-                  </button>
-                </li>
               </ul>
             </nav>
 
@@ -208,7 +198,7 @@ const GiftShopLayout = () => {
                 </button>
 
                 <button
-                  aria-label="סל קניות"
+                  aria-label="עגלת קניות"
                   onClick={toggleCart}
                   className="relative text-[#3abcb1] hover:text-[#a5b4fc]"
                 >
@@ -248,16 +238,6 @@ const GiftShopLayout = () => {
                 </button>
               </li>
               <li>
-                <button className="text-[#3abcb1] hover:text-[#a5b4fc] transition duration-300 text-lg font-medium">
-                  מבצעים
-                </button>
-              </li>
-              <li>
-                <button className= "text-[#3abcb1] hover:text-[#a5b4fc] transition duration-300 text-lg font-medium">
-                  צור קשר
-                </button>
-              </li>
-              <li>
                 <button
                   onClick={() => setIsPasswordModalOpen(true)}
                   className="px-4 py-2 bg-blue-500  text-white rounded-md"
@@ -289,7 +269,7 @@ const GiftShopLayout = () => {
       >
         <div className="p-4 overflow-y-auto h-full">
           <div className="flex justify-between items-center mb-4">
-            <h2 className="text-xl font-bold">סל הקניות שלך</h2>
+            <h2 className="text-xl font-bold">עגלת הקניות שלך</h2>
             <button
               className="text-gray-500 hover:font-bold text-red-500 text-xl"
               onClick={toggleCart}
@@ -313,8 +293,8 @@ const GiftShopLayout = () => {
         
             <div>
               <h3 className="text-xl font-semibold mb-4">צור קשר</h3>
-              <p>דוא"ל: info@originalgifts.co.il</p>
-              <p>טלפון: 03-1234567</p>
+              <p>דוא"ל: yeshurun.leebhoff@gmail.com </p>
+              <p> וואצאפ: 058-3235436 </p>
               <button
                     onClick={() => setIsPasswordModalOpen(true)}
                     className="px-4 py-2 bg-blue-500 text-white rounded-md"

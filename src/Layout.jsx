@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
-import { ShoppingCart, Search, Menu, Eye, EyeOff } from "lucide-react";
+import { ShoppingCart, Search, Menu, Eye, EyeOff, Mail } from "lucide-react";
+import { FaWhatsapp } from "react-icons/fa";
 import { Outlet, useLocation, useNavigate } from "react-router-dom";
 import SearchResults from "./Components/SerchResults";
 import ShopCart from "./Components/ShopCart";
@@ -63,7 +64,6 @@ const GiftShopLayout = () => {
     };
   }, [cartOpen, isMenuOpen]);
 
-  
   useEffect(() => {
     if (searchTerm.trim() === "") {
       setShowSearchResults(false);
@@ -118,7 +118,7 @@ const GiftShopLayout = () => {
                     <form onSubmit={handlePasswordSubmit}>
                       <div className="flex items-center mb-4">
                         <input
-                          type={showPassword ? "text" : "password"} // להחליף בין טקסט לסיסמא
+                          type={showPassword ? "text" : "password"}
                           value={password}
                           onChange={(e) => setPassword(e.target.value)}
                           className="border border-gray-300 px-4 py-2 rounded-md w-full"
@@ -127,7 +127,7 @@ const GiftShopLayout = () => {
                         />
                         <button
                           type="button"
-                          onClick={() => setShowPassword(!showPassword)} // החלף את מצב הסיסמא
+                          onClick={() => setShowPassword(!showPassword)}
                           className="ml-2"
                         >
                           {showPassword ? (
@@ -171,8 +171,10 @@ const GiftShopLayout = () => {
             <nav className="hidden md:flex">
               <ul className="flex flex-col md:flex-row items-center space-y-4 md:space-y-0 md:space-x-6">
                 <li>
-                  <button className="text-[#3abcb1] hover:text-[#a5b4fc] transition duration-300 text-lg font-medium flex items-center space-x-2"
-                  onClick={() => navigate('/categorys')}>
+                  <button
+                    className="text-[#3abcb1] hover:text-[#a5b4fc] transition duration-300 text-lg font-medium flex items-center space-x-2"
+                    onClick={() => navigate("/categorys")}
+                  >
                     <span>קטגוריות</span>
                   </button>
                 </li>
@@ -232,15 +234,17 @@ const GiftShopLayout = () => {
             </div>
             <ul className="space-y-4 flex flex-col items-center">
               <li>
-                <button className="text-[#3abcb1] hover:text-[#a5b4fc]  transition duration-300 text-lg font-medium"
-                 onClick={() => navigate('/categorys')}>
+                <button
+                  className="text-[#3abcb1] hover:text-[#a5b4fc]  transition duration-300 text-lg font-medium"
+                  onClick={() => navigate("/categorys")}
+                >
                   קטגוריות
                 </button>
               </li>
               <li>
                 <button
                   onClick={() => setIsPasswordModalOpen(true)}
-                  className="px-4 py-2 bg-blue-500  text-white rounded-md"
+                  className="text-[#3abcb1] hover:text-[#a5b4fc] transition duration-300 text-lg font-medium flex items-center space-x-2"
                 >
                   כניסת מנהל
                 </button>
@@ -249,8 +253,7 @@ const GiftShopLayout = () => {
           </div>
         </div>
       </header>
-      {!showSearchResults &&location.pathname === "/" &&
-        <HeaderTitle />}
+      {!showSearchResults && location.pathname === "/" && <HeaderTitle />}
 
       {/* Main Content */}
       <main className="container mx-auto px-4 py-8 flex-grow">
@@ -287,25 +290,59 @@ const GiftShopLayout = () => {
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-8 text-center sm:text-right">
             <div>
               <h3 className="text-xl font-semibold mb-4">אודותינו</h3>
-              <p> אנחנו מספקים מתנות מקוריות ויצירתיות לכל אירוע ולכל אדם  </p>
-              <p> אצלנו לא תשלם לפני שהמתנה אצלך ביד ותהיה מרוצה! </p>
+              <p> אנחנו מספקים מתנות מקוריות ויצירתיות לכל אירוע ולכל אדם </p>
+              <p> אצלנו לא תשלמו לפני שהמתנה אצלכם ביד ותהיו מרוצים! </p>
             </div>
-        
+
             <div>
               <h3 className="text-xl font-semibold mb-4">צור קשר</h3>
-              <p>דוא"ל: yeshurun.leebhoff@gmail.com </p>
-              <p> וואצאפ: 058-3235436 </p>
+
+              {/* קישור לאימייל */}
+              <p>
+                <a
+                  href="mailto:yeshurun.leebhoff@gmail.com"
+                  className="flex items-center text-lg font-medium"
+                >
+                  <Mail className="ml-1  text-2xl text-blue-500" />
+                  דוא"ל: yeshurun.leebhoff@gmail.com
+                </a>
+              </p>
+
+              <p className="mb-2">
+                <a
+                  href="https://wa.me/972583235436"
+                  className="flex items-center text-lg font-medium"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <FaWhatsapp className="ml-1  text-2xl text-green-500" />
+                  וואצאפ: 058-3235436
+                </a>
+              </p>
+
               <button
-                    onClick={() => setIsPasswordModalOpen(true)}
-                    className="px-4 py-2 bg-blue-500 text-white rounded-md"
-                  >
-                    כניסת מנהל
-                  </button>
+                onClick={() => setIsPasswordModalOpen(true)}
+                className="text-[#3abcb1] hover:text-[#a5b4fc] transition duration-300 text-lg font-medium flex items-center space-x-2"
+              >
+                כניסת מנהל
+              </button>
             </div>
           </div>
           <div className="mt-8 text-center">
-            <p>&copy; 2024 טליה-דיזיין. כל הזכויות שמורות.</p>
-          </div>
+  <p>&copy; 2024 טליה-דיזיין. כל הזכויות שמורות.</p>
+  <p className="flex justify-center items-center"> 
+    <a
+      href="https://wa.me/972586086033"
+      target="_blank"
+      rel="noopener noreferrer"
+      className="flex items-center" 
+    > האתר נבנה על ידי מענדי כהן
+      <FaWhatsapp className="mr-2 ml-1 text-2xl text-green-500" />
+      להזמנות: 0586086033
+    </a>
+  </p>
+</div>
+
         </div>
       </footer>
     </div>

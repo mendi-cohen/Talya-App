@@ -114,12 +114,16 @@ const ProductsForAdmin = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    console.log("Submitting form data:", formData); // לוג לפני שליחת הבקשה
     const formDataToSend = new FormData();
     formDataToSend.append("name", formData.name);
     formDataToSend.append("price", formData.price);
     formDataToSend.append("description", formData.description);
     if (formData.image) {
-      formDataToSend.append("image", formData.image);
+        formDataToSend.append("image", formData.image);
+        console.log("Image file attached:", formData.image.name); // לוג לתמונה
+    } else {
+        console.log("No image file attached");
     }
     formDataToSend.append("category", formData.category);
 
@@ -128,25 +132,29 @@ const ProductsForAdmin = () => {
       : `${process.env.REACT_APP_HOST_API}/products/addOne`;
 
     const method = currentProduct ? "PUT" : "POST";
+    console.log(`Sending ${method} request to:`, url); // לוג על הבקשה והכתובת
 
     try {
-      const response = await fetch(url, {
-        method,
-        body: formDataToSend,
-      });
-      if (response.ok) {
-        currentProduct ? alert(" המוצר עודכן ") : alert("המוצר נוסף");
-        setIsModalOpen(false);
-        retryFetch();
-      } else {
-        const errorResponse = await response.json();
-        console.error("שגיאה בשמירת המוצר:", errorResponse);
-        throw new Error("נכשל בשמירת המוצר: " + errorResponse.error);
-      }
+        const response = await fetch(url, {
+            method,
+            body: formDataToSend,
+        });
+        console.log("Server response status:", response.status); // לוג סטטוס תגובה
+
+        if (response.ok) {
+            currentProduct ? alert(" המוצר עודכן ") : alert("המוצר נוסף");
+            setIsModalOpen(false);
+            retryFetch();
+            console.log("Product saved successfully!"); // לוג להצלחה
+        } else {
+            const errorResponse = await response.json();
+            console.error("Error saving product:", errorResponse); // לוג לשגיאת שרת
+            throw new Error("נכשל בשמירת המוצר: " + errorResponse.error);
+        }
     } catch (error) {
-      console.error("שגיאה בשמירת המוצר:", error);
+        console.error("Error during submission:", error); // לוג לשגיאת קליינט
     }
-  };
+};
 
   if (loading) return <div className="text-center mt-8">טוען...</div>;
   if (error)
